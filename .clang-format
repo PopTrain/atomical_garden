@@ -1,0 +1,14 @@
+---
+# RPG Maker MZ Plugin Compatible Format
+Language: JavaScript
+BasedOnStyle: Google
+
+# Preserve the plugin metadata blocks
+ReflowComments: false
+ColumnLimit: 100
+
+# RPG Maker standard is often 4 spaces. 
+IndentWidth: 4
+AllowShortFunctionsOnASingleLine: false
+KeepEmptyLinesAtTheStartOfBlocks: true
+---
