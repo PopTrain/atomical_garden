@@ -20,9 +20,7 @@ Array.prototype.clone = function() {
     return this.slice(0);
 };
 
-Object.defineProperty(Array.prototype, "clone", {
-    enumerable: false
-});
+Object.defineProperty(Array.prototype, 'clone', {enumerable: false});
 
 /**
  * Checks whether the array contains a given element.
@@ -36,9 +34,7 @@ Array.prototype.contains = function(element) {
     return this.includes(element);
 };
 
-Object.defineProperty(Array.prototype, "contains", {
-    enumerable: false
-});
+Object.defineProperty(Array.prototype, 'contains', {enumerable: false});
 
 /**
  * Checks whether the two arrays are the same.
@@ -63,9 +59,7 @@ Array.prototype.equals = function(array) {
     return true;
 };
 
-Object.defineProperty(Array.prototype, "equals", {
-    enumerable: false
-});
+Object.defineProperty(Array.prototype, 'equals', {enumerable: false});
 
 /**
  * Removes a given element from the array (in place).
@@ -85,9 +79,7 @@ Array.prototype.remove = function(element) {
     }
 };
 
-Object.defineProperty(Array.prototype, "remove", {
-    enumerable: false
-});
+Object.defineProperty(Array.prototype, 'remove', {enumerable: false});
 
 /**
  * Generates a random integer in the range (0, max-1).
@@ -165,7 +157,7 @@ String.prototype.format = function() {
  * @returns {string} A string with leading zeros.
  */
 String.prototype.padZero = function(length) {
-    return this.padStart(length, "0");
+    return this.padStart(length, '0');
 };
 
 //-----------------------------------------------------------------------------
@@ -175,7 +167,7 @@ String.prototype.padZero = function(length) {
  * @namespace
  */
 function Utils() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -184,7 +176,7 @@ function Utils() {
  * @type string
  * @constant
  */
-Utils.RPGMAKER_NAME = "MZ";
+Utils.RPGMAKER_NAME = 'MZ';
 
 /**
  * The version of the RPG Maker.
@@ -192,7 +184,7 @@ Utils.RPGMAKER_NAME = "MZ";
  * @type string
  * @constant
  */
-Utils.RPGMAKER_VERSION = "1.10.0";
+Utils.RPGMAKER_VERSION = '1.10.0';
 
 /**
  * Checks whether the current RPG Maker version is greater than or equal to
@@ -203,8 +195,8 @@ Utils.RPGMAKER_VERSION = "1.10.0";
  *                    to the given version.
  */
 Utils.checkRMVersion = function(version) {
-    const array1 = this.RPGMAKER_VERSION.split(".");
-    const array2 = String(version).split(".");
+    const array1 = this.RPGMAKER_VERSION.split('.');
+    const array2 = String(version).split('.');
     for (let i = 0; i < array1.length; i++) {
         const v1 = parseInt(array1[i]);
         const v2 = parseInt(array2[i]);
@@ -225,11 +217,11 @@ Utils.checkRMVersion = function(version) {
  */
 Utils.isOptionValid = function(name) {
     const args = location.search.slice(1);
-    if (args.split("&").includes(name)) {
+    if (args.split('&').includes(name)) {
         return true;
     }
     if (this.isNwjs() && nw.App.argv.length > 0) {
-        return nw.App.argv[0].split("&").includes(name);
+        return nw.App.argv[0].split('&').includes(name);
     }
     return false;
 };
@@ -240,7 +232,7 @@ Utils.isOptionValid = function(name) {
  * @returns {boolean} True if the platform is NW.js.
  */
 Utils.isNwjs = function() {
-    return typeof require === "function" && typeof process === "object";
+    return typeof require === 'function' && typeof process === 'object';
 };
 
 /**
@@ -261,10 +253,7 @@ Utils.isMobileDevice = function() {
 Utils.isMobileSafari = function() {
     const agent = navigator.userAgent;
     return !!(
-        agent.match(/iPhone|iPad|iPod/) &&
-        agent.match(/AppleWebKit/) &&
-        !agent.match("CriOS")
-    );
+        agent.match(/iPhone|iPad|iPod/) && agent.match(/AppleWebKit/) && !agent.match('CriOS'));
 };
 
 /**
@@ -283,7 +272,7 @@ Utils.isAndroidChrome = function() {
  * @returns {boolean} True if the browser is accessing local files.
  */
 Utils.isLocal = function() {
-    return window.location.href.startsWith("file:");
+    return window.location.href.startsWith('file:');
 };
 
 /**
@@ -293,8 +282,8 @@ Utils.isLocal = function() {
  */
 Utils.canUseWebGL = function() {
     try {
-        const canvas = document.createElement("canvas");
-        return !!canvas.getContext("webgl");
+        const canvas = document.createElement('canvas');
+        return !!canvas.getContext('webgl');
     } catch (e) {
         return false;
     }
@@ -324,11 +313,7 @@ Utils.canUseCssFontLoading = function() {
  * @returns {boolean} True if the browser supports IndexedDB.
  */
 Utils.canUseIndexedDB = function() {
-    return !!(
-        window.indexedDB ||
-        window.mozIndexedDB ||
-        window.webkitIndexedDB
-    );
+    return !!(window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB);
 };
 
 /**
@@ -338,12 +323,9 @@ Utils.canUseIndexedDB = function() {
  */
 Utils.canPlayOgg = function() {
     if (!Utils._audioElement) {
-        Utils._audioElement = document.createElement("audio");
+        Utils._audioElement = document.createElement('audio');
     }
-    return !!(
-        Utils._audioElement &&
-        Utils._audioElement.canPlayType('audio/ogg; codecs="vorbis"')
-    );
+    return !!(Utils._audioElement && Utils._audioElement.canPlayType('audio/ogg; codecs="vorbis"'));
 };
 
 /**
@@ -353,12 +335,10 @@ Utils.canPlayOgg = function() {
  */
 Utils.canPlayWebm = function() {
     if (!Utils._videoElement) {
-        Utils._videoElement = document.createElement("video");
+        Utils._videoElement = document.createElement('video');
     }
     return !!(
-        Utils._videoElement &&
-        Utils._videoElement.canPlayType('video/webm; codecs="vp8, vorbis"')
-    );
+        Utils._videoElement && Utils._videoElement.canPlayType('video/webm; codecs="vp8, vorbis"'));
 };
 
 /**
@@ -368,7 +348,7 @@ Utils.canPlayWebm = function() {
  * @returns {string} Encoded string.
  */
 Utils.encodeURI = function(str) {
-    return encodeURIComponent(str).replace(/%2F/g, "/");
+    return encodeURIComponent(str).replace(/%2F/g, '/');
 };
 
 /**
@@ -378,7 +358,7 @@ Utils.encodeURI = function(str) {
  * @returns {string} The filename without subfolders.
  */
 Utils.extractFileName = function(filename) {
-    return filename.split("/").pop();
+    return filename.split('/').pop();
 };
 
 /**
@@ -388,14 +368,8 @@ Utils.extractFileName = function(filename) {
  * @returns {string} Escaped string.
  */
 Utils.escapeHtml = function(str) {
-    const entityMap = {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-        "/": "&#x2F;"
-    };
+    const entityMap =
+        {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#39;', '/': '&#x2F;'};
     return String(str).replace(/[&<>"'/]/g, s => entityMap[s]);
 };
 
@@ -449,9 +423,9 @@ Utils.hasEncryptedAudio = function() {
  */
 Utils.decryptArrayBuffer = function(source) {
     const header = new Uint8Array(source, 0, 16);
-    const headerHex = Array.from(header, x => x.toString(16)).join(",");
-    if (headerHex !== "52,50,47,4d,56,0,0,0,0,3,1,0,0,0,0,0") {
-        throw new Error("Decryption error");
+    const headerHex = Array.from(header, x => x.toString(16)).join(',');
+    if (headerHex !== '52,50,47,4d,56,0,0,0,0,3,1,0,0,0,0,0') {
+        throw new Error('Decryption error');
     }
     const body = source.slice(16);
     const view = new DataView(body);
@@ -469,7 +443,7 @@ Utils.decryptArrayBuffer = function(source) {
  * @namespace
  */
 function Graphics() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -533,7 +507,7 @@ Graphics.initialize = function() {
  * @type PIXI.Application
  * @name Graphics.app
  */
-Object.defineProperty(Graphics, "app", {
+Object.defineProperty(Graphics, 'app', {
     get: function() {
         return this._app;
     },
@@ -547,7 +521,7 @@ Object.defineProperty(Graphics, "app", {
  * @type EffekseerContext
  * @name Graphics.effekseer
  */
-Object.defineProperty(Graphics, "effekseer", {
+Object.defineProperty(Graphics, 'effekseer', {
     get: function() {
         return this._effekseer;
     },
@@ -596,7 +570,7 @@ Graphics.setStage = function(stage) {
  * Shows the loading spinner.
  */
 Graphics.startLoading = function() {
-    if (!document.getElementById("loadingSpinner")) {
+    if (!document.getElementById('loadingSpinner')) {
         document.body.appendChild(this._loadingSpinner);
     }
 };
@@ -607,7 +581,7 @@ Graphics.startLoading = function() {
  * @returns {boolean} True if the loading spinner was active.
  */
 Graphics.endLoading = function() {
-    if (document.getElementById("loadingSpinner")) {
+    if (document.getElementById('loadingSpinner')) {
         document.body.removeChild(this._loadingSpinner);
         return true;
     } else {
@@ -638,9 +612,9 @@ Graphics.printError = function(name, message, error = null) {
  *                           is pressed.
  */
 Graphics.showRetryButton = function(retry) {
-    const button = document.createElement("button");
-    button.id = "retryButton";
-    button.innerHTML = "Retry";
+    const button = document.createElement('button');
+    button.id = 'retryButton';
+    button.innerHTML = 'Retry';
     // [Note] stopPropagation() is required for iOS Safari.
     button.ontouchstart = e => e.stopPropagation();
     button.onclick = () => {
@@ -740,7 +714,7 @@ Graphics.resize = function(width, height) {
  * @type number
  * @name Graphics.width
  */
-Object.defineProperty(Graphics, "width", {
+Object.defineProperty(Graphics, 'width', {
     get: function() {
         return this._width;
     },
@@ -759,7 +733,7 @@ Object.defineProperty(Graphics, "width", {
  * @type number
  * @name Graphics.height
  */
-Object.defineProperty(Graphics, "height", {
+Object.defineProperty(Graphics, 'height', {
     get: function() {
         return this._height;
     },
@@ -778,7 +752,7 @@ Object.defineProperty(Graphics, "height", {
  * @type number
  * @name Graphics.defaultScale
  */
-Object.defineProperty(Graphics, "defaultScale", {
+Object.defineProperty(Graphics, 'defaultScale', {
     get: function() {
         return this._defaultScale;
     },
@@ -851,12 +825,12 @@ Graphics._stretchHeight = function() {
 };
 
 Graphics._makeErrorHtml = function(name, message /*, error*/) {
-    const nameDiv = document.createElement("div");
-    const messageDiv = document.createElement("div");
-    nameDiv.id = "errorName";
-    messageDiv.id = "errorMessage";
-    nameDiv.innerHTML = Utils.escapeHtml(name || "");
-    messageDiv.innerHTML = Utils.escapeHtml(message || "");
+    const nameDiv = document.createElement('div');
+    const messageDiv = document.createElement('div');
+    nameDiv.id = 'errorName';
+    messageDiv.id = 'errorMessage';
+    nameDiv.innerHTML = Utils.escapeHtml(name || '');
+    messageDiv.innerHTML = Utils.escapeHtml(message || '');
     return nameDiv.outerHTML + messageDiv.outerHTML;
 };
 
@@ -865,8 +839,8 @@ Graphics._defaultStretchMode = function() {
 };
 
 Graphics._createErrorPrinter = function() {
-    this._errorPrinter = document.createElement("div");
-    this._errorPrinter.id = "errorPrinter";
+    this._errorPrinter = document.createElement('div');
+    this._errorPrinter.id = 'errorPrinter';
     this._errorPrinter.innerHTML = this._makeErrorHtml();
     document.body.appendChild(this._errorPrinter);
 };
@@ -874,13 +848,13 @@ Graphics._createErrorPrinter = function() {
 Graphics._updateErrorPrinter = function() {
     const width = this._width * 0.8 * this._realScale;
     const height = 100 * this._realScale;
-    this._errorPrinter.style.width = width + "px";
-    this._errorPrinter.style.height = height + "px";
+    this._errorPrinter.style.width = width + 'px';
+    this._errorPrinter.style.height = height + 'px';
 };
 
 Graphics._createCanvas = function() {
-    this._canvas = document.createElement("canvas");
-    this._canvas.id = "gameCanvas";
+    this._canvas = document.createElement('canvas');
+    this._canvas.id = 'gameCanvas';
     this._updateCanvas();
     document.body.appendChild(this._canvas);
 };
@@ -899,10 +873,10 @@ Graphics._updateVideo = function() {
 };
 
 Graphics._createLoadingSpinner = function() {
-    const loadingSpinner = document.createElement("div");
-    const loadingSpinnerImage = document.createElement("div");
-    loadingSpinner.id = "loadingSpinner";
-    loadingSpinnerImage.id = "loadingSpinnerImage";
+    const loadingSpinner = document.createElement('div');
+    const loadingSpinnerImage = document.createElement('div');
+    loadingSpinner.id = 'loadingSpinner';
+    loadingSpinnerImage.id = 'loadingSpinnerImage';
     loadingSpinner.appendChild(loadingSpinnerImage);
     this._loadingSpinner = loadingSpinner;
 };
@@ -914,18 +888,18 @@ Graphics._createFPSCounter = function() {
 Graphics._centerElement = function(element) {
     const width = element.width * this._realScale;
     const height = element.height * this._realScale;
-    element.style.position = "absolute";
-    element.style.margin = "auto";
+    element.style.position = 'absolute';
+    element.style.margin = 'auto';
     element.style.top = 0;
     element.style.left = 0;
     element.style.right = 0;
     element.style.bottom = 0;
-    element.style.width = width + "px";
-    element.style.height = height + "px";
+    element.style.width = width + 'px';
+    element.style.height = height + 'px';
 };
 
 Graphics._disableContextMenu = function() {
-    const elements = document.body.getElementsByTagName("*");
+    const elements = document.body.getElementsByTagName('*');
     const oncontextmenu = () => false;
     for (const element of elements) {
         element.oncontextmenu = oncontextmenu;
@@ -935,22 +909,22 @@ Graphics._disableContextMenu = function() {
 Graphics._applyCanvasFilter = function() {
     if (this._canvas) {
         this._canvas.style.opacity = 0.5;
-        this._canvas.style.filter = "blur(8px)";
-        this._canvas.style.webkitFilter = "blur(8px)";
+        this._canvas.style.filter = 'blur(8px)';
+        this._canvas.style.webkitFilter = 'blur(8px)';
     }
 };
 
 Graphics._clearCanvasFilter = function() {
     if (this._canvas) {
         this._canvas.style.opacity = 1;
-        this._canvas.style.filter = "";
-        this._canvas.style.webkitFilter = "";
+        this._canvas.style.filter = '';
+        this._canvas.style.webkitFilter = '';
     }
 };
 
 Graphics._setupEventHandlers = function() {
-    window.addEventListener("resize", this._onWindowResize.bind(this));
-    document.addEventListener("keydown", this._onKeyDown.bind(this));
+    window.addEventListener('resize', this._onWindowResize.bind(this));
+    document.addEventListener('keydown', this._onKeyDown.bind(this));
 };
 
 Graphics._onWindowResize = function() {
@@ -960,15 +934,15 @@ Graphics._onWindowResize = function() {
 Graphics._onKeyDown = function(event) {
     if (!event.ctrlKey && !event.altKey) {
         switch (event.keyCode) {
-            case 113: // F2
+            case 113:  // F2
                 event.preventDefault();
                 this._switchFPSCounter();
                 break;
-            case 114: // F3
+            case 114:  // F3
                 event.preventDefault();
                 this._switchStretchMode();
                 break;
-            case 115: // F4
+            case 115:  // F4
                 event.preventDefault();
                 this._switchFullScreen();
                 break;
@@ -995,10 +969,7 @@ Graphics._switchFullScreen = function() {
 
 Graphics._isFullScreen = function() {
     return (
-        document.fullScreenElement ||
-        document.mozFullScreen ||
-        document.webkitFullscreenElement
-    );
+        document.fullScreenElement || document.mozFullScreen || document.webkitFullscreenElement);
 };
 
 Graphics._requestFullScreen = function() {
@@ -1025,10 +996,7 @@ Graphics._cancelFullScreen = function() {
 Graphics._createPixiApp = function() {
     try {
         this._setupPixi();
-        this._app = new PIXI.Application({
-            view: this._canvas,
-            autoStart: false
-        });
+        this._app = new PIXI.Application({view: this._canvas, autoStart: false});
         this._app.ticker.remove(this._app.render, this._app);
         this._app.ticker.add(this._onTick, this);
     } catch (e) {
@@ -1094,25 +1062,25 @@ Graphics.FPSCounter.prototype.endTick = function() {
 };
 
 Graphics.FPSCounter.prototype.switchMode = function() {
-    if (this._boxDiv.style.display === "none") {
-        this._boxDiv.style.display = "block";
+    if (this._boxDiv.style.display === 'none') {
+        this._boxDiv.style.display = 'block';
         this._showFps = true;
     } else if (this._showFps) {
         this._showFps = false;
     } else {
-        this._boxDiv.style.display = "none";
+        this._boxDiv.style.display = 'none';
     }
     this._update();
 };
 
 Graphics.FPSCounter.prototype._createElements = function() {
-    this._boxDiv = document.createElement("div");
-    this._labelDiv = document.createElement("div");
-    this._numberDiv = document.createElement("div");
-    this._boxDiv.id = "fpsCounterBox";
-    this._labelDiv.id = "fpsCounterLabel";
-    this._numberDiv.id = "fpsCounterNumber";
-    this._boxDiv.style.display = "none";
+    this._boxDiv = document.createElement('div');
+    this._labelDiv = document.createElement('div');
+    this._numberDiv = document.createElement('div');
+    this._boxDiv.id = 'fpsCounterBox';
+    this._labelDiv.id = 'fpsCounterLabel';
+    this._numberDiv.id = 'fpsCounterNumber';
+    this._boxDiv.style.display = 'none';
     this._boxDiv.appendChild(this._labelDiv);
     this._boxDiv.appendChild(this._numberDiv);
     document.body.appendChild(this._boxDiv);
@@ -1120,7 +1088,7 @@ Graphics.FPSCounter.prototype._createElements = function() {
 
 Graphics.FPSCounter.prototype._update = function() {
     const count = this._showFps ? this.fps : this.duration;
-    this._labelDiv.textContent = this._showFps ? "FPS" : "ms";
+    this._labelDiv.textContent = this._showFps ? 'FPS' : 'ms';
     this._numberDiv.textContent = count.toFixed(0);
 };
 
@@ -1183,13 +1151,13 @@ Bitmap.prototype.initialize = function(width, height) {
     this._context = null;
     this._baseTexture = null;
     this._image = null;
-    this._url = "";
+    this._url = '';
     this._paintOpacity = 255;
     this._smooth = true;
     this._loadListeners = [];
 
     // "none", "loading", "loaded", or "error"
-    this._loadingState = "none";
+    this._loadingState = 'none';
 
     if (width > 0 && height > 0) {
         this._createCanvas(width, height);
@@ -1200,7 +1168,7 @@ Bitmap.prototype.initialize = function(width, height) {
      *
      * @type string
      */
-    this.fontFace = "sans-serif";
+    this.fontFace = 'sans-serif';
 
     /**
      * The size of the font in pixels.
@@ -1228,14 +1196,14 @@ Bitmap.prototype.initialize = function(width, height) {
      *
      * @type string
      */
-    this.textColor = "#ffffff";
+    this.textColor = '#ffffff';
 
     /**
      * The color of the outline of the text in CSS format.
      *
      * @type string
      */
-    this.outlineColor = "rgba(0, 0, 0, 0.5)";
+    this.outlineColor = 'rgba(0, 0, 0, 0.5)';
 
     /**
      * The width of the outline of the text.
@@ -1279,7 +1247,7 @@ Bitmap.snap = function(stage) {
         canvas.width = 0;
         canvas.height = 0;
     }
-    renderTexture.destroy({ destroyBase: true });
+    renderTexture.destroy({destroyBase: true});
     bitmap.baseTexture.update();
     return bitmap;
 };
@@ -1290,7 +1258,7 @@ Bitmap.snap = function(stage) {
  * @returns {boolean} True if the bitmap is ready to render.
  */
 Bitmap.prototype.isReady = function() {
-    return this._loadingState === "loaded" || this._loadingState === "none";
+    return this._loadingState === 'loaded' || this._loadingState === 'none';
 };
 
 /**
@@ -1299,7 +1267,7 @@ Bitmap.prototype.isReady = function() {
  * @returns {boolean} True if a loading error has occurred.
  */
 Bitmap.prototype.isError = function() {
-    return this._loadingState === "error";
+    return this._loadingState === 'error';
 };
 
 /**
@@ -1309,7 +1277,7 @@ Bitmap.prototype.isError = function() {
  * @type string
  * @name Bitmap#url
  */
-Object.defineProperty(Bitmap.prototype, "url", {
+Object.defineProperty(Bitmap.prototype, 'url', {
     get: function() {
         return this._url;
     },
@@ -1323,7 +1291,7 @@ Object.defineProperty(Bitmap.prototype, "url", {
  * @type PIXI.BaseTexture
  * @name Bitmap#baseTexture
  */
-Object.defineProperty(Bitmap.prototype, "baseTexture", {
+Object.defineProperty(Bitmap.prototype, 'baseTexture', {
     get: function() {
         return this._baseTexture;
     },
@@ -1337,7 +1305,7 @@ Object.defineProperty(Bitmap.prototype, "baseTexture", {
  * @type HTMLImageElement
  * @name Bitmap#image
  */
-Object.defineProperty(Bitmap.prototype, "image", {
+Object.defineProperty(Bitmap.prototype, 'image', {
     get: function() {
         return this._image;
     },
@@ -1351,7 +1319,7 @@ Object.defineProperty(Bitmap.prototype, "image", {
  * @type HTMLCanvasElement
  * @name Bitmap#canvas
  */
-Object.defineProperty(Bitmap.prototype, "canvas", {
+Object.defineProperty(Bitmap.prototype, 'canvas', {
     get: function() {
         this._ensureCanvas();
         return this._canvas;
@@ -1366,7 +1334,7 @@ Object.defineProperty(Bitmap.prototype, "canvas", {
  * @type CanvasRenderingContext2D
  * @name Bitmap#context
  */
-Object.defineProperty(Bitmap.prototype, "context", {
+Object.defineProperty(Bitmap.prototype, 'context', {
     get: function() {
         this._ensureCanvas();
         return this._context;
@@ -1381,7 +1349,7 @@ Object.defineProperty(Bitmap.prototype, "context", {
  * @type number
  * @name Bitmap#width
  */
-Object.defineProperty(Bitmap.prototype, "width", {
+Object.defineProperty(Bitmap.prototype, 'width', {
     get: function() {
         const image = this._canvas || this._image;
         return image ? image.width : 0;
@@ -1396,7 +1364,7 @@ Object.defineProperty(Bitmap.prototype, "width", {
  * @type number
  * @name Bitmap#height
  */
-Object.defineProperty(Bitmap.prototype, "height", {
+Object.defineProperty(Bitmap.prototype, 'height', {
     get: function() {
         const image = this._canvas || this._image;
         return image ? image.height : 0;
@@ -1411,7 +1379,7 @@ Object.defineProperty(Bitmap.prototype, "height", {
  * @type Rectangle
  * @name Bitmap#rect
  */
-Object.defineProperty(Bitmap.prototype, "rect", {
+Object.defineProperty(Bitmap.prototype, 'rect', {
     get: function() {
         return new Rectangle(0, 0, this.width, this.height);
     },
@@ -1424,7 +1392,7 @@ Object.defineProperty(Bitmap.prototype, "rect", {
  * @type boolean
  * @name Bitmap#smooth
  */
-Object.defineProperty(Bitmap.prototype, "smooth", {
+Object.defineProperty(Bitmap.prototype, 'smooth', {
     get: function() {
         return this._smooth;
     },
@@ -1443,7 +1411,7 @@ Object.defineProperty(Bitmap.prototype, "smooth", {
  * @type number
  * @name Bitmap#paintOpacity
  */
-Object.defineProperty(Bitmap.prototype, "paintOpacity", {
+Object.defineProperty(Bitmap.prototype, 'paintOpacity', {
     get: function() {
         return this._paintOpacity;
     },
@@ -1500,7 +1468,7 @@ Bitmap.prototype.blt = function(source, sx, sy, sw, sh, dx, dy, dw, dh) {
     dh = dh || sh;
     try {
         const image = source._canvas || source._image;
-        this.context.globalCompositeOperation = "source-over";
+        this.context.globalCompositeOperation = 'source-over';
         this.context.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
         this._baseTexture.update();
     } catch (e) {
@@ -1517,7 +1485,7 @@ Bitmap.prototype.blt = function(source, sx, sy, sw, sh, dx, dy, dw, dh) {
  */
 Bitmap.prototype.getPixel = function(x, y) {
     const data = this.context.getImageData(x, y, 1, 1).data;
-    let result = "#";
+    let result = '#';
     for (let i = 0; i < 3; i++) {
         result += data[i].toString(16).padZero(2);
     }
@@ -1613,9 +1581,7 @@ Bitmap.prototype.strokeRect = function(x, y, width, height, color) {
  * @param {string} color2 - The gradient ending color.
  * @param {boolean} vertical - Whether the gradient should be draw as vertical or not.
  */
-Bitmap.prototype.gradientFillRect = function(
-    x, y, width, height, color1, color2, vertical
-) {
+Bitmap.prototype.gradientFillRect = function(x, y, width, height, color1, color2, vertical) {
     const context = this.context;
     const x1 = vertical ? x : x + width;
     const y1 = vertical ? y + height : y;
@@ -1666,16 +1632,16 @@ Bitmap.prototype.drawText = function(text, x, y, maxWidth, lineHeight, align) {
     maxWidth = maxWidth || 0xffffffff;
     let tx = x;
     let ty = Math.round(y + lineHeight / 2 + this.fontSize * 0.35);
-    if (align === "center") {
+    if (align === 'center') {
         tx += maxWidth / 2;
     }
-    if (align === "right") {
+    if (align === 'right') {
         tx += maxWidth;
     }
     context.save();
     context.font = this._makeFontNameText();
     context.textAlign = align;
-    context.textBaseline = "alphabetic";
+    context.textBaseline = 'alphabetic';
     context.globalAlpha = 1;
     this._drawTextOutline(text, tx, ty, maxWidth);
     context.globalAlpha = alpha;
@@ -1720,16 +1686,16 @@ Bitmap.prototype.retry = function() {
 };
 
 Bitmap.prototype._makeFontNameText = function() {
-    const italic = this.fontItalic ? "Italic " : "";
-    const bold = this.fontBold ? "Bold " : "";
-    return italic + bold + this.fontSize + "px " + this.fontFace;
+    const italic = this.fontItalic ? 'Italic ' : '';
+    const bold = this.fontBold ? 'Bold ' : '';
+    return italic + bold + this.fontSize + 'px ' + this.fontFace;
 };
 
 Bitmap.prototype._drawTextOutline = function(text, tx, ty, maxWidth) {
     const context = this.context;
     context.strokeStyle = this.outlineColor;
     context.lineWidth = this.outlineWidth;
-    context.lineJoin = "round";
+    context.lineJoin = 'round';
     context.strokeText(text, tx, ty, maxWidth);
 };
 
@@ -1740,8 +1706,8 @@ Bitmap.prototype._drawTextBody = function(text, tx, ty, maxWidth) {
 };
 
 Bitmap.prototype._createCanvas = function(width, height) {
-    this._canvas = document.createElement("canvas");
-    this._context = this._canvas.getContext("2d");
+    this._canvas = document.createElement('canvas');
+    this._context = this._canvas.getContext('2d');
     this._canvas.width = width;
     this._canvas.height = height;
     this._createBaseTexture(this._canvas);
@@ -1789,7 +1755,7 @@ Bitmap.prototype._startLoading = function() {
     this._image.onload = this._onLoad.bind(this);
     this._image.onerror = this._onError.bind(this);
     this._destroyCanvas();
-    this._loadingState = "loading";
+    this._loadingState = 'loading';
     if (Utils.hasEncryptedImages()) {
         this._startDecrypting();
     } else {
@@ -1803,8 +1769,8 @@ Bitmap.prototype._startLoading = function() {
 
 Bitmap.prototype._startDecrypting = function() {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", this._url + "_");
-    xhr.responseType = "arraybuffer";
+    xhr.open('GET', this._url + '_');
+    xhr.responseType = 'arraybuffer';
     xhr.onload = () => this._onXhrLoad(xhr);
     xhr.onerror = this._onError.bind(this);
     xhr.send();
@@ -1824,7 +1790,7 @@ Bitmap.prototype._onLoad = function() {
     if (Utils.hasEncryptedImages()) {
         URL.revokeObjectURL(this._image.src);
     }
-    this._loadingState = "loaded";
+    this._loadingState = 'loaded';
     this._createBaseTexture(this._image);
     this._callLoadListeners();
 };
@@ -1837,7 +1803,7 @@ Bitmap.prototype._callLoadListeners = function() {
 };
 
 Bitmap.prototype._onError = function() {
-    this._loadingState = "error";
+    this._loadingState = 'error';
 };
 
 //-----------------------------------------------------------------------------
@@ -1884,7 +1850,7 @@ Sprite._counter = 0;
  * @type Bitmap
  * @name Sprite#bitmap
  */
-Object.defineProperty(Sprite.prototype, "bitmap", {
+Object.defineProperty(Sprite.prototype, 'bitmap', {
     get: function() {
         return this._bitmap;
     },
@@ -1903,7 +1869,7 @@ Object.defineProperty(Sprite.prototype, "bitmap", {
  * @type number
  * @name Sprite#width
  */
-Object.defineProperty(Sprite.prototype, "width", {
+Object.defineProperty(Sprite.prototype, 'width', {
     get: function() {
         return this._frame.width;
     },
@@ -1920,7 +1886,7 @@ Object.defineProperty(Sprite.prototype, "width", {
  * @type number
  * @name Sprite#height
  */
-Object.defineProperty(Sprite.prototype, "height", {
+Object.defineProperty(Sprite.prototype, 'height', {
     get: function() {
         return this._frame.height;
     },
@@ -1937,7 +1903,7 @@ Object.defineProperty(Sprite.prototype, "height", {
  * @type number
  * @name Sprite#opacity
  */
-Object.defineProperty(Sprite.prototype, "opacity", {
+Object.defineProperty(Sprite.prototype, 'opacity', {
     get: function() {
         return this.alpha * 255;
     },
@@ -1953,7 +1919,7 @@ Object.defineProperty(Sprite.prototype, "opacity", {
  * @type number
  * @name Sprite#blendMode
  */
-Object.defineProperty(Sprite.prototype, "blendMode", {
+Object.defineProperty(Sprite.prototype, 'blendMode', {
     get: function() {
         if (this._colorFilter) {
             return this._colorFilter.blendMode;
@@ -1974,7 +1940,7 @@ Object.defineProperty(Sprite.prototype, "blendMode", {
  * Destroys the sprite.
  */
 Sprite.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Sprite.prototype.destroy.call(this, options);
 };
 
@@ -2034,12 +2000,7 @@ Sprite.prototype.move = function(x, y) {
 Sprite.prototype.setFrame = function(x, y, width, height) {
     this._refreshFrame = false;
     const frame = this._frame;
-    if (
-        x !== frame.x ||
-        y !== frame.y ||
-        width !== frame.width ||
-        height !== frame.height
-    ) {
+    if (x !== frame.x || y !== frame.y || width !== frame.width || height !== frame.height) {
         frame.x = x;
         frame.y = y;
         frame.width = width;
@@ -2076,7 +2037,7 @@ Sprite.prototype.getBlendColor = function() {
  */
 Sprite.prototype.setBlendColor = function(color) {
     if (!(color instanceof Array)) {
-        throw new Error("Argument must be an array");
+        throw new Error('Argument must be an array');
     }
     if (!this._blendColor.equals(color)) {
         this._blendColor = color.clone();
@@ -2100,7 +2061,7 @@ Sprite.prototype.getColorTone = function() {
  */
 Sprite.prototype.setColorTone = function(tone) {
     if (!(tone instanceof Array)) {
-        throw new Error("Argument must be an array");
+        throw new Error('Argument must be an array');
     }
     if (!this._colorTone.equals(tone)) {
         this._colorTone = tone.clone();
@@ -2259,7 +2220,7 @@ Tilemap.prototype.initialize = function() {
  * @type number
  * @name Tilemap#width
  */
-Object.defineProperty(Tilemap.prototype, "width", {
+Object.defineProperty(Tilemap.prototype, 'width', {
     get: function() {
         return this._width;
     },
@@ -2275,7 +2236,7 @@ Object.defineProperty(Tilemap.prototype, "width", {
  * @type number
  * @name Tilemap#height
  */
-Object.defineProperty(Tilemap.prototype, "height", {
+Object.defineProperty(Tilemap.prototype, 'height', {
     get: function() {
         return this._height;
     },
@@ -2289,7 +2250,7 @@ Object.defineProperty(Tilemap.prototype, "height", {
  * Destroys the tilemap.
  */
 Tilemap.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
 };
 
@@ -2373,12 +2334,8 @@ Tilemap.prototype.updateTransform = function() {
     this._lowerLayer.y = startY * this.tileHeight - oy;
     this._upperLayer.x = startX * this.tileWidth - ox;
     this._upperLayer.y = startY * this.tileHeight - oy;
-    if (
-        this._needsRepaint ||
-        this._lastAnimationFrame !== this.animationFrame ||
-        this._lastStartX !== startX ||
-        this._lastStartY !== startY
-    ) {
+    if (this._needsRepaint || this._lastAnimationFrame !== this.animationFrame ||
+        this._lastStartX !== startX || this._lastStartY !== startY) {
         this._lastAnimationFrame = this.animationFrame;
         this._lastStartX = startX;
         this._lastStartY = startY;
@@ -2725,9 +2682,7 @@ Tilemap.isTileA5 = function(tileId) {
 
 Tilemap.isWaterTile = function(tileId) {
     if (this.isTileA1(tileId)) {
-        return !(
-            tileId >= this.TILE_ID_A1 + 96 && tileId < this.TILE_ID_A1 + 192
-        );
+        return !(tileId >= this.TILE_ID_A1 + 96 && tileId < this.TILE_ID_A1 + 192);
     } else {
         return false;
     }
@@ -2742,9 +2697,7 @@ Tilemap.isWaterfallTile = function(tileId) {
 };
 
 Tilemap.isGroundTile = function(tileId) {
-    return (
-        this.isTileA1(tileId) || this.isTileA2(tileId) || this.isTileA5(tileId)
-    );
+    return (this.isTileA1(tileId) || this.isTileA2(tileId) || this.isTileA5(tileId));
 };
 
 Tilemap.isShadowingTile = function(tileId) {
@@ -2761,9 +2714,7 @@ Tilemap.isWallTopTile = function(tileId) {
 
 Tilemap.isWallSideTile = function(tileId) {
     return (
-        (this.isTileA3(tileId) || this.isTileA4(tileId)) &&
-        this.getAutotileKind(tileId) % 16 >= 8
-    );
+        (this.isTileA3(tileId) || this.isTileA4(tileId)) && this.getAutotileKind(tileId) % 16 >= 8);
 };
 
 Tilemap.isWallTile = function(tileId) {
@@ -2772,10 +2723,8 @@ Tilemap.isWallTile = function(tileId) {
 
 Tilemap.isFloorTypeAutotile = function(tileId) {
     return (
-        (this.isTileA1(tileId) && !this.isWaterfallTile(tileId)) ||
-        this.isTileA2(tileId) ||
-        this.isWallTopTile(tileId)
-    );
+        (this.isTileA1(tileId) && !this.isWaterfallTile(tileId)) || this.isTileA2(tileId) ||
+        this.isWallTopTile(tileId));
 };
 
 Tilemap.isWallTypeAutotile = function(tileId) {
@@ -2791,82 +2740,48 @@ Tilemap.isWaterfallTypeAutotile = function(tileId) {
 
 // prettier-ignore
 Tilemap.FLOOR_AUTOTILE_TABLE = [
-    [[2, 4], [1, 4], [2, 3], [1, 3]],
-    [[2, 0], [1, 4], [2, 3], [1, 3]],
-    [[2, 4], [3, 0], [2, 3], [1, 3]],
-    [[2, 0], [3, 0], [2, 3], [1, 3]],
-    [[2, 4], [1, 4], [2, 3], [3, 1]],
-    [[2, 0], [1, 4], [2, 3], [3, 1]],
-    [[2, 4], [3, 0], [2, 3], [3, 1]],
-    [[2, 0], [3, 0], [2, 3], [3, 1]],
-    [[2, 4], [1, 4], [2, 1], [1, 3]],
-    [[2, 0], [1, 4], [2, 1], [1, 3]],
-    [[2, 4], [3, 0], [2, 1], [1, 3]],
-    [[2, 0], [3, 0], [2, 1], [1, 3]],
-    [[2, 4], [1, 4], [2, 1], [3, 1]],
-    [[2, 0], [1, 4], [2, 1], [3, 1]],
-    [[2, 4], [3, 0], [2, 1], [3, 1]],
-    [[2, 0], [3, 0], [2, 1], [3, 1]],
-    [[0, 4], [1, 4], [0, 3], [1, 3]],
-    [[0, 4], [3, 0], [0, 3], [1, 3]],
-    [[0, 4], [1, 4], [0, 3], [3, 1]],
-    [[0, 4], [3, 0], [0, 3], [3, 1]],
-    [[2, 2], [1, 2], [2, 3], [1, 3]],
-    [[2, 2], [1, 2], [2, 3], [3, 1]],
-    [[2, 2], [1, 2], [2, 1], [1, 3]],
-    [[2, 2], [1, 2], [2, 1], [3, 1]],
-    [[2, 4], [3, 4], [2, 3], [3, 3]],
-    [[2, 4], [3, 4], [2, 1], [3, 3]],
-    [[2, 0], [3, 4], [2, 3], [3, 3]],
-    [[2, 0], [3, 4], [2, 1], [3, 3]],
-    [[2, 4], [1, 4], [2, 5], [1, 5]],
-    [[2, 0], [1, 4], [2, 5], [1, 5]],
-    [[2, 4], [3, 0], [2, 5], [1, 5]],
-    [[2, 0], [3, 0], [2, 5], [1, 5]],
-    [[0, 4], [3, 4], [0, 3], [3, 3]],
-    [[2, 2], [1, 2], [2, 5], [1, 5]],
-    [[0, 2], [1, 2], [0, 3], [1, 3]],
-    [[0, 2], [1, 2], [0, 3], [3, 1]],
-    [[2, 2], [3, 2], [2, 3], [3, 3]],
-    [[2, 2], [3, 2], [2, 1], [3, 3]],
-    [[2, 4], [3, 4], [2, 5], [3, 5]],
-    [[2, 0], [3, 4], [2, 5], [3, 5]],
-    [[0, 4], [1, 4], [0, 5], [1, 5]],
-    [[0, 4], [3, 0], [0, 5], [1, 5]],
-    [[0, 2], [3, 2], [0, 3], [3, 3]],
-    [[0, 2], [1, 2], [0, 5], [1, 5]],
-    [[0, 4], [3, 4], [0, 5], [3, 5]],
-    [[2, 2], [3, 2], [2, 5], [3, 5]],
-    [[0, 2], [3, 2], [0, 5], [3, 5]],
-    [[0, 0], [1, 0], [0, 1], [1, 1]]
+    [[2, 4], [1, 4], [2, 3], [1, 3]], [[2, 0], [1, 4], [2, 3], [1, 3]],
+    [[2, 4], [3, 0], [2, 3], [1, 3]], [[2, 0], [3, 0], [2, 3], [1, 3]],
+    [[2, 4], [1, 4], [2, 3], [3, 1]], [[2, 0], [1, 4], [2, 3], [3, 1]],
+    [[2, 4], [3, 0], [2, 3], [3, 1]], [[2, 0], [3, 0], [2, 3], [3, 1]],
+    [[2, 4], [1, 4], [2, 1], [1, 3]], [[2, 0], [1, 4], [2, 1], [1, 3]],
+    [[2, 4], [3, 0], [2, 1], [1, 3]], [[2, 0], [3, 0], [2, 1], [1, 3]],
+    [[2, 4], [1, 4], [2, 1], [3, 1]], [[2, 0], [1, 4], [2, 1], [3, 1]],
+    [[2, 4], [3, 0], [2, 1], [3, 1]], [[2, 0], [3, 0], [2, 1], [3, 1]],
+    [[0, 4], [1, 4], [0, 3], [1, 3]], [[0, 4], [3, 0], [0, 3], [1, 3]],
+    [[0, 4], [1, 4], [0, 3], [3, 1]], [[0, 4], [3, 0], [0, 3], [3, 1]],
+    [[2, 2], [1, 2], [2, 3], [1, 3]], [[2, 2], [1, 2], [2, 3], [3, 1]],
+    [[2, 2], [1, 2], [2, 1], [1, 3]], [[2, 2], [1, 2], [2, 1], [3, 1]],
+    [[2, 4], [3, 4], [2, 3], [3, 3]], [[2, 4], [3, 4], [2, 1], [3, 3]],
+    [[2, 0], [3, 4], [2, 3], [3, 3]], [[2, 0], [3, 4], [2, 1], [3, 3]],
+    [[2, 4], [1, 4], [2, 5], [1, 5]], [[2, 0], [1, 4], [2, 5], [1, 5]],
+    [[2, 4], [3, 0], [2, 5], [1, 5]], [[2, 0], [3, 0], [2, 5], [1, 5]],
+    [[0, 4], [3, 4], [0, 3], [3, 3]], [[2, 2], [1, 2], [2, 5], [1, 5]],
+    [[0, 2], [1, 2], [0, 3], [1, 3]], [[0, 2], [1, 2], [0, 3], [3, 1]],
+    [[2, 2], [3, 2], [2, 3], [3, 3]], [[2, 2], [3, 2], [2, 1], [3, 3]],
+    [[2, 4], [3, 4], [2, 5], [3, 5]], [[2, 0], [3, 4], [2, 5], [3, 5]],
+    [[0, 4], [1, 4], [0, 5], [1, 5]], [[0, 4], [3, 0], [0, 5], [1, 5]],
+    [[0, 2], [3, 2], [0, 3], [3, 3]], [[0, 2], [1, 2], [0, 5], [1, 5]],
+    [[0, 4], [3, 4], [0, 5], [3, 5]], [[2, 2], [3, 2], [2, 5], [3, 5]],
+    [[0, 2], [3, 2], [0, 5], [3, 5]], [[0, 0], [1, 0], [0, 1], [1, 1]]
 ];
 
 // prettier-ignore
 Tilemap.WALL_AUTOTILE_TABLE = [
-    [[2, 2], [1, 2], [2, 1], [1, 1]],
-    [[0, 2], [1, 2], [0, 1], [1, 1]],
-    [[2, 0], [1, 0], [2, 1], [1, 1]],
-    [[0, 0], [1, 0], [0, 1], [1, 1]],
-    [[2, 2], [3, 2], [2, 1], [3, 1]],
-    [[0, 2], [3, 2], [0, 1], [3, 1]],
-    [[2, 0], [3, 0], [2, 1], [3, 1]],
-    [[0, 0], [3, 0], [0, 1], [3, 1]],
-    [[2, 2], [1, 2], [2, 3], [1, 3]],
-    [[0, 2], [1, 2], [0, 3], [1, 3]],
-    [[2, 0], [1, 0], [2, 3], [1, 3]],
-    [[0, 0], [1, 0], [0, 3], [1, 3]],
-    [[2, 2], [3, 2], [2, 3], [3, 3]],
-    [[0, 2], [3, 2], [0, 3], [3, 3]],
-    [[2, 0], [3, 0], [2, 3], [3, 3]],
-    [[0, 0], [3, 0], [0, 3], [3, 3]]
+    [[2, 2], [1, 2], [2, 1], [1, 1]], [[0, 2], [1, 2], [0, 1], [1, 1]],
+    [[2, 0], [1, 0], [2, 1], [1, 1]], [[0, 0], [1, 0], [0, 1], [1, 1]],
+    [[2, 2], [3, 2], [2, 1], [3, 1]], [[0, 2], [3, 2], [0, 1], [3, 1]],
+    [[2, 0], [3, 0], [2, 1], [3, 1]], [[0, 0], [3, 0], [0, 1], [3, 1]],
+    [[2, 2], [1, 2], [2, 3], [1, 3]], [[0, 2], [1, 2], [0, 3], [1, 3]],
+    [[2, 0], [1, 0], [2, 3], [1, 3]], [[0, 0], [1, 0], [0, 3], [1, 3]],
+    [[2, 2], [3, 2], [2, 3], [3, 3]], [[0, 2], [3, 2], [0, 3], [3, 3]],
+    [[2, 0], [3, 0], [2, 3], [3, 3]], [[0, 0], [3, 0], [0, 3], [3, 3]]
 ];
 
 // prettier-ignore
 Tilemap.WATERFALL_AUTOTILE_TABLE = [
-    [[2, 0], [1, 0], [2, 1], [1, 1]],
-    [[0, 0], [1, 0], [0, 1], [1, 1]],
-    [[2, 0], [3, 0], [2, 1], [3, 1]],
-    [[0, 0], [3, 0], [0, 1], [3, 1]]
+    [[2, 0], [1, 0], [2, 1], [1, 1]], [[0, 0], [1, 0], [0, 1], [1, 1]],
+    [[2, 0], [3, 0], [2, 1], [3, 1]], [[0, 0], [3, 0], [0, 1], [3, 1]]
 ];
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -2978,12 +2893,11 @@ Tilemap.Layer.prototype._createVao = function() {
     const geometry = new PIXI.Geometry();
     this._indexBuffer = ib;
     this._vertexBuffer = vb;
-    this._vao = geometry
-        .addIndex(this._indexBuffer)
-        .addAttribute("aTextureId", vb, 1, false, type, stride, 0)
-        .addAttribute("aFrame", vb, 4, false, type, stride, 1 * 4)
-        .addAttribute("aSource", vb, 2, false, type, stride, 5 * 4)
-        .addAttribute("aDest", vb, 2, false, type, stride, 7 * 4);
+    this._vao = geometry.addIndex(this._indexBuffer)
+                    .addAttribute('aTextureId', vb, 1, false, type, stride, 0)
+                    .addAttribute('aFrame', vb, 4, false, type, stride, 1 * 4)
+                    .addAttribute('aSource', vb, 2, false, type, stride, 5 * 4)
+                    .addAttribute('aDest', vb, 2, false, type, stride, 7 * 4);
 };
 
 Tilemap.Layer.prototype._updateIndexBuffer = function() {
@@ -3072,7 +2986,7 @@ Tilemap.CombinedLayer.prototype.initialize = function() {
 };
 
 Tilemap.CombinedLayer.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
 };
 
@@ -3093,9 +3007,7 @@ Tilemap.CombinedLayer.prototype.size = function() {
 };
 
 // prettier-ignore
-Tilemap.CombinedLayer.prototype.addRect = function(
-    setNumber, sx, sy, dx, dy, w, h
-) {
+Tilemap.CombinedLayer.prototype.addRect = function(setNumber, sx, sy, dx, dy, w, h) {
     for (const child of this.children) {
         if (child.size() < Tilemap.Layer.MAX_SIZE) {
             child.addRect(setNumber, sx, sy, dx, dy, w, h);
@@ -3142,51 +3054,46 @@ Tilemap.Renderer.prototype.contextChange = function() {
 };
 
 Tilemap.Renderer.prototype._createShader = function() {
-    const vertexSrc =
-        "attribute float aTextureId;" +
-        "attribute vec4 aFrame;" +
-        "attribute vec2 aSource;" +
-        "attribute vec2 aDest;" +
-        "uniform mat3 uProjectionMatrix;" +
-        "varying vec4 vFrame;" +
-        "varying vec2 vTextureCoord;" +
-        "varying float vTextureId;" +
-        "void main(void) {" +
-        "  vec3 position = uProjectionMatrix * vec3(aDest, 1.0);" +
-        "  gl_Position = vec4(position, 1.0);" +
-        "  vFrame = aFrame;" +
-        "  vTextureCoord = aSource;" +
-        "  vTextureId = aTextureId;" +
-        "}";
-    const fragmentSrc =
-        "varying vec4 vFrame;" +
-        "varying vec2 vTextureCoord;" +
-        "varying float vTextureId;" +
-        "uniform sampler2D uSampler0;" +
-        "uniform sampler2D uSampler1;" +
-        "uniform sampler2D uSampler2;" +
-        "void main(void) {" +
-        "  vec2 textureCoord = clamp(vTextureCoord, vFrame.xy, vFrame.zw);" +
-        "  int textureId = int(vTextureId);" +
-        "  vec4 color;" +
-        "  if (textureId < 0) {" +
-        "    color = vec4(0.0, 0.0, 0.0, 0.5);" +
-        "  } else if (textureId == 0) {" +
-        "    color = texture2D(uSampler0, textureCoord / 2048.0);" +
-        "  } else if (textureId == 1) {" +
-        "    color = texture2D(uSampler1, textureCoord / 2048.0);" +
-        "  } else if (textureId == 2) {" +
-        "    color = texture2D(uSampler2, textureCoord / 2048.0);" +
-        "  }" +
-        "  gl_FragColor = color;" +
-        "}";
+    const vertexSrc = 'attribute float aTextureId;' +
+        'attribute vec4 aFrame;' +
+        'attribute vec2 aSource;' +
+        'attribute vec2 aDest;' +
+        'uniform mat3 uProjectionMatrix;' +
+        'varying vec4 vFrame;' +
+        'varying vec2 vTextureCoord;' +
+        'varying float vTextureId;' +
+        'void main(void) {' +
+        '  vec3 position = uProjectionMatrix * vec3(aDest, 1.0);' +
+        '  gl_Position = vec4(position, 1.0);' +
+        '  vFrame = aFrame;' +
+        '  vTextureCoord = aSource;' +
+        '  vTextureId = aTextureId;' +
+        '}';
+    const fragmentSrc = 'varying vec4 vFrame;' +
+        'varying vec2 vTextureCoord;' +
+        'varying float vTextureId;' +
+        'uniform sampler2D uSampler0;' +
+        'uniform sampler2D uSampler1;' +
+        'uniform sampler2D uSampler2;' +
+        'void main(void) {' +
+        '  vec2 textureCoord = clamp(vTextureCoord, vFrame.xy, vFrame.zw);' +
+        '  int textureId = int(vTextureId);' +
+        '  vec4 color;' +
+        '  if (textureId < 0) {' +
+        '    color = vec4(0.0, 0.0, 0.0, 0.5);' +
+        '  } else if (textureId == 0) {' +
+        '    color = texture2D(uSampler0, textureCoord / 2048.0);' +
+        '  } else if (textureId == 1) {' +
+        '    color = texture2D(uSampler1, textureCoord / 2048.0);' +
+        '  } else if (textureId == 2) {' +
+        '    color = texture2D(uSampler2, textureCoord / 2048.0);' +
+        '  }' +
+        '  gl_FragColor = color;' +
+        '}';
 
-    return new PIXI.Shader(PIXI.Program.from(vertexSrc, fragmentSrc), {
-        uSampler0: 0,
-        uSampler1: 0,
-        uSampler2: 0,
-        uProjectionMatrix: new PIXI.Matrix()
-    });
+    return new PIXI.Shader(
+        PIXI.Program.from(vertexSrc, fragmentSrc),
+        {uSampler0: 0, uSampler1: 0, uSampler2: 0, uProjectionMatrix: new PIXI.Matrix()});
 };
 
 Tilemap.Renderer.prototype._createInternalTextures = function() {
@@ -3217,8 +3124,7 @@ Tilemap.Renderer.prototype.updateTextures = function(renderer, images) {
         const type = gl.UNSIGNED_BYTE;
         gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, 0);
         // prettier-ignore
-        gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, 1024, 1024, format, type,
-                         this._clearBuffer);
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, 1024, 1024, format, type, this._clearBuffer);
         gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, 1);
         gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, format, type, images[i]);
     }
@@ -3230,7 +3136,7 @@ Tilemap.Renderer.prototype.bindTextures = function(renderer) {
     }
 };
 
-PIXI.Renderer.registerPlugin("rpgtilemap", Tilemap.Renderer);
+PIXI.Renderer.registerPlugin('rpgtilemap', Tilemap.Renderer);
 
 //-----------------------------------------------------------------------------
 /**
@@ -3278,7 +3184,7 @@ TilingSprite._emptyBaseTexture = null;
  * @type Bitmap
  * @name TilingSprite#bitmap
  */
-Object.defineProperty(TilingSprite.prototype, "bitmap", {
+Object.defineProperty(TilingSprite.prototype, 'bitmap', {
     get: function() {
         return this._bitmap;
     },
@@ -3297,7 +3203,7 @@ Object.defineProperty(TilingSprite.prototype, "bitmap", {
  * @type number
  * @name TilingSprite#opacity
  */
-Object.defineProperty(TilingSprite.prototype, "opacity", {
+Object.defineProperty(TilingSprite.prototype, 'opacity', {
     get: function() {
         return this.alpha * 255;
     },
@@ -3311,7 +3217,7 @@ Object.defineProperty(TilingSprite.prototype, "opacity", {
  * Destroys the tiling sprite.
  */
 TilingSprite.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.TilingSprite.prototype.destroy.call(this, options);
 };
 
@@ -3429,7 +3335,7 @@ ScreenSprite.prototype.initialize = function() {
  * @type number
  * @name ScreenSprite#opacity
  */
-Object.defineProperty(ScreenSprite.prototype, "opacity", {
+Object.defineProperty(ScreenSprite.prototype, 'opacity', {
     get: function() {
         return this.alpha * 255;
     },
@@ -3443,7 +3349,7 @@ Object.defineProperty(ScreenSprite.prototype, "opacity", {
  * Destroys the screen sprite.
  */
 ScreenSprite.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
 };
 
@@ -3581,7 +3487,7 @@ Window.prototype.initialize = function() {
  * @type Bitmap
  * @name Window#windowskin
  */
-Object.defineProperty(Window.prototype, "windowskin", {
+Object.defineProperty(Window.prototype, 'windowskin', {
     get: function() {
         return this._windowskin;
     },
@@ -3600,7 +3506,7 @@ Object.defineProperty(Window.prototype, "windowskin", {
  * @type Bitmap
  * @name Window#contents
  */
-Object.defineProperty(Window.prototype, "contents", {
+Object.defineProperty(Window.prototype, 'contents', {
     get: function() {
         return this._contentsSprite.bitmap;
     },
@@ -3616,7 +3522,7 @@ Object.defineProperty(Window.prototype, "contents", {
  * @type Bitmap
  * @name Window#contentsBack
  */
-Object.defineProperty(Window.prototype, "contentsBack", {
+Object.defineProperty(Window.prototype, 'contentsBack', {
     get: function() {
         return this._contentsBackSprite.bitmap;
     },
@@ -3632,7 +3538,7 @@ Object.defineProperty(Window.prototype, "contentsBack", {
  * @type number
  * @name Window#width
  */
-Object.defineProperty(Window.prototype, "width", {
+Object.defineProperty(Window.prototype, 'width', {
     get: function() {
         return this._width;
     },
@@ -3649,7 +3555,7 @@ Object.defineProperty(Window.prototype, "width", {
  * @type number
  * @name Window#height
  */
-Object.defineProperty(Window.prototype, "height", {
+Object.defineProperty(Window.prototype, 'height', {
     get: function() {
         return this._height;
     },
@@ -3666,7 +3572,7 @@ Object.defineProperty(Window.prototype, "height", {
  * @type number
  * @name Window#padding
  */
-Object.defineProperty(Window.prototype, "padding", {
+Object.defineProperty(Window.prototype, 'padding', {
     get: function() {
         return this._padding;
     },
@@ -3683,7 +3589,7 @@ Object.defineProperty(Window.prototype, "padding", {
  * @type number
  * @name Window#margin
  */
-Object.defineProperty(Window.prototype, "margin", {
+Object.defineProperty(Window.prototype, 'margin', {
     get: function() {
         return this._margin;
     },
@@ -3700,7 +3606,7 @@ Object.defineProperty(Window.prototype, "margin", {
  * @type number
  * @name Window#opacity
  */
-Object.defineProperty(Window.prototype, "opacity", {
+Object.defineProperty(Window.prototype, 'opacity', {
     get: function() {
         return this._container.alpha * 255;
     },
@@ -3716,7 +3622,7 @@ Object.defineProperty(Window.prototype, "opacity", {
  * @type number
  * @name Window#backOpacity
  */
-Object.defineProperty(Window.prototype, "backOpacity", {
+Object.defineProperty(Window.prototype, 'backOpacity', {
     get: function() {
         return this._backSprite.alpha * 255;
     },
@@ -3732,7 +3638,7 @@ Object.defineProperty(Window.prototype, "backOpacity", {
  * @type number
  * @name Window#contentsOpacity
  */
-Object.defineProperty(Window.prototype, "contentsOpacity", {
+Object.defineProperty(Window.prototype, 'contentsOpacity', {
     get: function() {
         return this._contentsSprite.alpha * 255;
     },
@@ -3748,7 +3654,7 @@ Object.defineProperty(Window.prototype, "contentsOpacity", {
  * @type number
  * @name Window#openness
  */
-Object.defineProperty(Window.prototype, "openness", {
+Object.defineProperty(Window.prototype, 'openness', {
     get: function() {
         return this._openness;
     },
@@ -3769,7 +3675,7 @@ Object.defineProperty(Window.prototype, "openness", {
  * @type number
  * @name Window#innerWidth
  */
-Object.defineProperty(Window.prototype, "innerWidth", {
+Object.defineProperty(Window.prototype, 'innerWidth', {
     get: function() {
         return Math.max(0, this._width - this._padding * 2);
     },
@@ -3783,7 +3689,7 @@ Object.defineProperty(Window.prototype, "innerWidth", {
  * @type number
  * @name Window#innerHeight
  */
-Object.defineProperty(Window.prototype, "innerHeight", {
+Object.defineProperty(Window.prototype, 'innerHeight', {
     get: function() {
         return Math.max(0, this._height - this._padding * 2);
     },
@@ -3797,14 +3703,9 @@ Object.defineProperty(Window.prototype, "innerHeight", {
  * @type Rectangle
  * @name Window#innerRect
  */
-Object.defineProperty(Window.prototype, "innerRect", {
+Object.defineProperty(Window.prototype, 'innerRect', {
     get: function() {
-        return new Rectangle(
-            this._padding,
-            this._padding,
-            this.innerWidth,
-            this.innerHeight
-        );
+        return new Rectangle(this._padding, this._padding, this.innerWidth, this.innerHeight);
     },
     configurable: true
 });
@@ -3813,7 +3714,7 @@ Object.defineProperty(Window.prototype, "innerRect", {
  * Destroys the window.
  */
 Window.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
 };
 
@@ -4080,8 +3981,8 @@ Window.prototype._refreshBack = function() {
 };
 
 Window.prototype._refreshFrame = function() {
-    const drect = { x: 0, y: 0, width: this._width, height: this._height };
-    const srect = { x: 96, y: 0, width: 96, height: 96 };
+    const drect = {x: 0, y: 0, width: this._width, height: this._height};
+    const srect = {x: 96, y: 0, width: 96, height: 96};
     const m = 24;
     for (const child of this._frameSprite.children) {
         child.bitmap = this._windowskin;
@@ -4091,7 +3992,7 @@ Window.prototype._refreshFrame = function() {
 
 Window.prototype._refreshCursor = function() {
     const drect = this._cursorRect.clone();
-    const srect = { x: 96, y: 96, width: 48, height: 48 };
+    const srect = {x: 96, y: 96, width: 48, height: 48};
     const m = 4;
     for (const child of this._cursorSprite.children) {
         child.bitmap = this._windowskin;
@@ -4369,7 +4270,7 @@ Weather.prototype.initialize = function() {
      *
      * @type string
      */
-    this.type = "none";
+    this.type = 'none';
 
     /**
      * The power of the weather in the range (0, 9).
@@ -4390,7 +4291,7 @@ Weather.prototype.initialize = function() {
  * Destroys the weather.
  */
 Weather.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
     this._rainBitmap.destroy();
     this._stormBitmap.destroy();
@@ -4407,11 +4308,11 @@ Weather.prototype.update = function() {
 
 Weather.prototype._createBitmaps = function() {
     this._rainBitmap = new Bitmap(1, 60);
-    this._rainBitmap.fillAll("white");
+    this._rainBitmap.fillAll('white');
     this._stormBitmap = new Bitmap(2, 100);
-    this._stormBitmap.fillAll("white");
+    this._stormBitmap.fillAll('white');
     this._snowBitmap = new Bitmap(9, 9);
-    this._snowBitmap.drawCircle(4, 4, 4, "white");
+    this._snowBitmap.drawCircle(4, 4, 4, 'white');
 };
 
 Weather.prototype._createDimmer = function() {
@@ -4452,13 +4353,13 @@ Weather.prototype._removeSprite = function() {
 
 Weather.prototype._updateSprite = function(sprite) {
     switch (this.type) {
-        case "rain":
+        case 'rain':
             this._updateRainSprite(sprite);
             break;
-        case "storm":
+        case 'storm':
             this._updateStormSprite(sprite);
             break;
-        case "snow":
+        case 'snow':
             this._updateSnowSprite(sprite);
             break;
     }
@@ -4535,7 +4436,7 @@ ColorFilter.prototype.setHue = function(hue) {
  */
 ColorFilter.prototype.setColorTone = function(tone) {
     if (!(tone instanceof Array)) {
-        throw new Error("Argument must be an array");
+        throw new Error('Argument must be an array');
     }
     this.uniforms.colorTone = tone.clone();
 };
@@ -4547,7 +4448,7 @@ ColorFilter.prototype.setColorTone = function(tone) {
  */
 ColorFilter.prototype.setBlendColor = function(color) {
     if (!(color instanceof Array)) {
-        throw new Error("Argument must be an array");
+        throw new Error('Argument must be an array');
     }
     this.uniforms.blendColor = color.clone();
 };
@@ -4562,89 +4463,88 @@ ColorFilter.prototype.setBrightness = function(brightness) {
 };
 
 ColorFilter.prototype._fragmentSrc = function() {
-    const src =
-        "varying vec2 vTextureCoord;" +
-        "uniform sampler2D uSampler;" +
-        "uniform float hue;" +
-        "uniform vec4 colorTone;" +
-        "uniform vec4 blendColor;" +
-        "uniform float brightness;" +
-        "vec3 rgbToHsl(vec3 rgb) {" +
-        "  float r = rgb.r;" +
-        "  float g = rgb.g;" +
-        "  float b = rgb.b;" +
-        "  float cmin = min(r, min(g, b));" +
-        "  float cmax = max(r, max(g, b));" +
-        "  float h = 0.0;" +
-        "  float s = 0.0;" +
-        "  float l = (cmin + cmax) / 2.0;" +
-        "  float delta = cmax - cmin;" +
-        "  if (delta > 0.0) {" +
-        "    if (r == cmax) {" +
-        "      h = mod((g - b) / delta + 6.0, 6.0) / 6.0;" +
-        "    } else if (g == cmax) {" +
-        "      h = ((b - r) / delta + 2.0) / 6.0;" +
-        "    } else {" +
-        "      h = ((r - g) / delta + 4.0) / 6.0;" +
-        "    }" +
-        "    if (l < 1.0) {" +
-        "      s = delta / (1.0 - abs(2.0 * l - 1.0));" +
-        "    }" +
-        "  }" +
-        "  return vec3(h, s, l);" +
-        "}" +
-        "vec3 hslToRgb(vec3 hsl) {" +
-        "  float h = hsl.x;" +
-        "  float s = hsl.y;" +
-        "  float l = hsl.z;" +
-        "  float c = (1.0 - abs(2.0 * l - 1.0)) * s;" +
-        "  float x = c * (1.0 - abs((mod(h * 6.0, 2.0)) - 1.0));" +
-        "  float m = l - c / 2.0;" +
-        "  float cm = c + m;" +
-        "  float xm = x + m;" +
-        "  if (h < 1.0 / 6.0) {" +
-        "    return vec3(cm, xm, m);" +
-        "  } else if (h < 2.0 / 6.0) {" +
-        "    return vec3(xm, cm, m);" +
-        "  } else if (h < 3.0 / 6.0) {" +
-        "    return vec3(m, cm, xm);" +
-        "  } else if (h < 4.0 / 6.0) {" +
-        "    return vec3(m, xm, cm);" +
-        "  } else if (h < 5.0 / 6.0) {" +
-        "    return vec3(xm, m, cm);" +
-        "  } else {" +
-        "    return vec3(cm, m, xm);" +
-        "  }" +
-        "}" +
-        "void main() {" +
-        "  vec4 sample = texture2D(uSampler, vTextureCoord);" +
-        "  float a = sample.a;" +
-        "  vec3 hsl = rgbToHsl(sample.rgb);" +
-        "  hsl.x = mod(hsl.x + hue / 360.0, 1.0);" +
-        "  hsl.y = hsl.y * (1.0 - colorTone.a / 255.0);" +
-        "  vec3 rgb = hslToRgb(hsl);" +
-        "  float r = rgb.r;" +
-        "  float g = rgb.g;" +
-        "  float b = rgb.b;" +
-        "  float r2 = colorTone.r / 255.0;" +
-        "  float g2 = colorTone.g / 255.0;" +
-        "  float b2 = colorTone.b / 255.0;" +
-        "  float r3 = blendColor.r / 255.0;" +
-        "  float g3 = blendColor.g / 255.0;" +
-        "  float b3 = blendColor.b / 255.0;" +
-        "  float i3 = blendColor.a / 255.0;" +
-        "  float i1 = 1.0 - i3;" +
-        "  r = clamp((r / a + r2) * a, 0.0, 1.0);" +
-        "  g = clamp((g / a + g2) * a, 0.0, 1.0);" +
-        "  b = clamp((b / a + b2) * a, 0.0, 1.0);" +
-        "  r = clamp(r * i1 + r3 * i3 * a, 0.0, 1.0);" +
-        "  g = clamp(g * i1 + g3 * i3 * a, 0.0, 1.0);" +
-        "  b = clamp(b * i1 + b3 * i3 * a, 0.0, 1.0);" +
-        "  r = r * brightness / 255.0;" +
-        "  g = g * brightness / 255.0;" +
-        "  b = b * brightness / 255.0;" +
-        "  gl_FragColor = vec4(r, g, b, a);" +
-        "}";
+    const src = 'varying vec2 vTextureCoord;' +
+        'uniform sampler2D uSampler;' +
+        'uniform float hue;' +
+        'uniform vec4 colorTone;' +
+        'uniform vec4 blendColor;' +
+        'uniform float brightness;' +
+        'vec3 rgbToHsl(vec3 rgb) {' +
+        '  float r = rgb.r;' +
+        '  float g = rgb.g;' +
+        '  float b = rgb.b;' +
+        '  float cmin = min(r, min(g, b));' +
+        '  float cmax = max(r, max(g, b));' +
+        '  float h = 0.0;' +
+        '  float s = 0.0;' +
+        '  float l = (cmin + cmax) / 2.0;' +
+        '  float delta = cmax - cmin;' +
+        '  if (delta > 0.0) {' +
+        '    if (r == cmax) {' +
+        '      h = mod((g - b) / delta + 6.0, 6.0) / 6.0;' +
+        '    } else if (g == cmax) {' +
+        '      h = ((b - r) / delta + 2.0) / 6.0;' +
+        '    } else {' +
+        '      h = ((r - g) / delta + 4.0) / 6.0;' +
+        '    }' +
+        '    if (l < 1.0) {' +
+        '      s = delta / (1.0 - abs(2.0 * l - 1.0));' +
+        '    }' +
+        '  }' +
+        '  return vec3(h, s, l);' +
+        '}' +
+        'vec3 hslToRgb(vec3 hsl) {' +
+        '  float h = hsl.x;' +
+        '  float s = hsl.y;' +
+        '  float l = hsl.z;' +
+        '  float c = (1.0 - abs(2.0 * l - 1.0)) * s;' +
+        '  float x = c * (1.0 - abs((mod(h * 6.0, 2.0)) - 1.0));' +
+        '  float m = l - c / 2.0;' +
+        '  float cm = c + m;' +
+        '  float xm = x + m;' +
+        '  if (h < 1.0 / 6.0) {' +
+        '    return vec3(cm, xm, m);' +
+        '  } else if (h < 2.0 / 6.0) {' +
+        '    return vec3(xm, cm, m);' +
+        '  } else if (h < 3.0 / 6.0) {' +
+        '    return vec3(m, cm, xm);' +
+        '  } else if (h < 4.0 / 6.0) {' +
+        '    return vec3(m, xm, cm);' +
+        '  } else if (h < 5.0 / 6.0) {' +
+        '    return vec3(xm, m, cm);' +
+        '  } else {' +
+        '    return vec3(cm, m, xm);' +
+        '  }' +
+        '}' +
+        'void main() {' +
+        '  vec4 sample = texture2D(uSampler, vTextureCoord);' +
+        '  float a = sample.a;' +
+        '  vec3 hsl = rgbToHsl(sample.rgb);' +
+        '  hsl.x = mod(hsl.x + hue / 360.0, 1.0);' +
+        '  hsl.y = hsl.y * (1.0 - colorTone.a / 255.0);' +
+        '  vec3 rgb = hslToRgb(hsl);' +
+        '  float r = rgb.r;' +
+        '  float g = rgb.g;' +
+        '  float b = rgb.b;' +
+        '  float r2 = colorTone.r / 255.0;' +
+        '  float g2 = colorTone.g / 255.0;' +
+        '  float b2 = colorTone.b / 255.0;' +
+        '  float r3 = blendColor.r / 255.0;' +
+        '  float g3 = blendColor.g / 255.0;' +
+        '  float b3 = blendColor.b / 255.0;' +
+        '  float i3 = blendColor.a / 255.0;' +
+        '  float i1 = 1.0 - i3;' +
+        '  r = clamp((r / a + r2) * a, 0.0, 1.0);' +
+        '  g = clamp((g / a + g2) * a, 0.0, 1.0);' +
+        '  b = clamp((b / a + b2) * a, 0.0, 1.0);' +
+        '  r = clamp(r * i1 + r3 * i3 * a, 0.0, 1.0);' +
+        '  g = clamp(g * i1 + g3 * i3 * a, 0.0, 1.0);' +
+        '  b = clamp(b * i1 + b3 * i3 * a, 0.0, 1.0);' +
+        '  r = r * brightness / 255.0;' +
+        '  g = g * brightness / 255.0;' +
+        '  b = b * brightness / 255.0;' +
+        '  gl_FragColor = vec4(r, g, b, a);' +
+        '}';
     return src;
 };
 
@@ -4670,7 +4570,7 @@ Stage.prototype.initialize = function() {
  * Destroys the stage.
  */
 Stage.prototype.destroy = function() {
-    const options = { children: true, texture: true };
+    const options = {children: true, texture: true};
     PIXI.Container.prototype.destroy.call(this, options);
 };
 
@@ -4698,9 +4598,11 @@ WebAudio.prototype.initialize = function(url) {
  */
 WebAudio.initialize = function() {
     this._context = null;
+    this._fmodmodule = null;
     this._masterGainNode = null;
     this._masterVolume = 1;
     this._createContext();
+    this._createFMODContext();
     this._createMasterGainNode();
     this._setupEventHandlers();
     return !!this._context;
@@ -4725,6 +4627,33 @@ WebAudio._createContext = function() {
     }
 };
 
+/**
+ * The context object of FMOD.
+ *
+ * @readonly
+ * @type FMODContext
+ * @name WebAudio.fmodmodule
+ */
+Object.defineProperty(WebAudio, 'fmodmodule', {
+    get: function() {
+        return this._fmodmodule;
+    },
+    configurable: true
+});
+
+WebAudio._createFMODContext = function() {
+    if (this._app && window.fmodmodule) {
+        try {
+            this._fmodmodule = fmodmodule.createContext();
+            if (this._fmodmodule) {
+                this._fmodmodule.init(this._app);
+            }
+        } catch (error) {
+            this._app = null;
+        }
+    }
+};
+
 WebAudio._currentTime = function() {
     return this._context ? this._context.currentTime : 0;
 };
@@ -4741,21 +4670,21 @@ WebAudio._createMasterGainNode = function() {
 WebAudio._setupEventHandlers = function() {
     const onUserGesture = this._onUserGesture.bind(this);
     const onVisibilityChange = this._onVisibilityChange.bind(this);
-    document.addEventListener("keydown", onUserGesture);
-    document.addEventListener("mousedown", onUserGesture);
-    document.addEventListener("touchend", onUserGesture);
-    document.addEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener('keydown', onUserGesture);
+    document.addEventListener('mousedown', onUserGesture);
+    document.addEventListener('touchend', onUserGesture);
+    document.addEventListener('visibilitychange', onVisibilityChange);
 };
 
 WebAudio._onUserGesture = function() {
     const context = this._context;
-    if (context && context.state === "suspended") {
+    if (context && context.state === 'suspended') {
         context.resume();
     }
 };
 
 WebAudio._onVisibilityChange = function() {
-    if (document.visibilityState === "hidden") {
+    if (document.visibilityState === 'hidden') {
         this._onHide();
     } else {
         this._onShow();
@@ -4847,7 +4776,7 @@ WebAudio.prototype.clear = function() {
  * @type string
  * @name WebAudio#url
  */
-Object.defineProperty(WebAudio.prototype, "url", {
+Object.defineProperty(WebAudio.prototype, 'url', {
     get: function() {
         return this._url;
     },
@@ -4860,17 +4789,14 @@ Object.defineProperty(WebAudio.prototype, "url", {
  * @type number
  * @name WebAudio#volume
  */
-Object.defineProperty(WebAudio.prototype, "volume", {
+Object.defineProperty(WebAudio.prototype, 'volume', {
     get: function() {
         return this._volume;
     },
     set: function(value) {
         this._volume = value;
         if (this._gainNode) {
-            this._gainNode.gain.setValueAtTime(
-                this._volume,
-                WebAudio._currentTime()
-            );
+            this._gainNode.gain.setValueAtTime(this._volume, WebAudio._currentTime());
         }
     },
     configurable: true
@@ -4882,7 +4808,7 @@ Object.defineProperty(WebAudio.prototype, "volume", {
  * @type number
  * @name WebAudio#pitch
  */
-Object.defineProperty(WebAudio.prototype, "pitch", {
+Object.defineProperty(WebAudio.prototype, 'pitch', {
     get: function() {
         return this._pitch;
     },
@@ -4903,7 +4829,7 @@ Object.defineProperty(WebAudio.prototype, "pitch", {
  * @type number
  * @name WebAudio#pan
  */
-Object.defineProperty(WebAudio.prototype, "pan", {
+Object.defineProperty(WebAudio.prototype, 'pan', {
     get: function() {
         return this._pan;
     },
@@ -5081,15 +5007,12 @@ WebAudio.prototype._startLoading = function() {
 };
 
 WebAudio.prototype._shouldUseDecoder = function() {
-    return !Utils.canPlayOgg() && typeof VorbisDecoder === "function";
+    return !Utils.canPlayOgg() && typeof VorbisDecoder === 'function';
 };
 
 WebAudio.prototype._createDecoder = function() {
-    this._decoder = new VorbisDecoder(
-        WebAudio._context,
-        this._onDecode.bind(this),
-        this._onError.bind(this)
-    );
+    this._decoder =
+        new VorbisDecoder(WebAudio._context, this._onDecode.bind(this), this._onError.bind(this));
 };
 
 WebAudio.prototype._destroyDecoder = function() {
@@ -5100,23 +5023,21 @@ WebAudio.prototype._destroyDecoder = function() {
 };
 
 WebAudio.prototype._realUrl = function() {
-    return this._url + (Utils.hasEncryptedAudio() ? "_" : "");
+    return this._url + (Utils.hasEncryptedAudio() ? '_' : '');
 };
 
 WebAudio.prototype._startXhrLoading = function(url) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.responseType = "arraybuffer";
+    xhr.open('GET', url);
+    xhr.responseType = 'arraybuffer';
     xhr.onload = () => this._onXhrLoad(xhr);
     xhr.onerror = this._onError.bind(this);
     xhr.send();
 };
 
 WebAudio.prototype._startFetching = function(url) {
-    const options = { credentials: "same-origin" };
-    fetch(url, options)
-        .then(response => this._onFetch(response))
-        .catch(() => this._onError());
+    const options = {credentials: 'same-origin'};
+    fetch(url, options).then(response => this._onFetch(response)).catch(() => this._onError());
 };
 
 WebAudio.prototype._onXhrLoad = function(xhr) {
@@ -5132,7 +5053,7 @@ WebAudio.prototype._onXhrLoad = function(xhr) {
 WebAudio.prototype._onFetch = function(response) {
     if (response.ok) {
         const reader = response.body.getReader();
-        const readChunk = ({ done, value }) => {
+        const readChunk = ({done, value}) => {
             if (done) {
                 this._isLoaded = true;
                 if (this._fetchedSize > 0) {
@@ -5146,10 +5067,7 @@ WebAudio.prototype._onFetch = function(response) {
                 return reader.read().then(readChunk);
             }
         };
-        reader
-            .read()
-            .then(readChunk)
-            .catch(() => this._onError());
+        reader.read().then(readChunk).catch(() => this._onError());
     } else {
         this._onError();
     }
@@ -5221,8 +5139,7 @@ WebAudio.prototype._decodeAudioData = function(arrayBuffer) {
     } else {
         // [Note] Make a temporary copy of arrayBuffer because
         //   decodeAudioData() detaches it.
-        WebAudio._context
-            .decodeAudioData(arrayBuffer.slice())
+        WebAudio._context.decodeAudioData(arrayBuffer.slice())
             .then(buffer => this._onDecode(buffer))
             .catch(() => this._onError());
     }
@@ -5358,7 +5275,7 @@ WebAudio.prototype._stopSourceNode = function() {
 
 WebAudio.prototype._createPannerNode = function() {
     this._pannerNode = WebAudio._context.createPanner();
-    this._pannerNode.panningModel = "equalpower";
+    this._pannerNode.panningModel = 'equalpower';
     this._pannerNode.connect(WebAudio._masterGainNode);
     this._updatePanner();
 };
@@ -5431,7 +5348,7 @@ WebAudio.prototype._readLoopComments = function(arrayBuffer) {
     const view = new DataView(arrayBuffer);
     let index = 0;
     while (index < view.byteLength - 30) {
-        if (this._readFourCharacters(view, index) !== "OggS") {
+        if (this._readFourCharacters(view, index) !== 'OggS') {
             break;
         }
         index += 26;
@@ -5453,7 +5370,7 @@ WebAudio.prototype._readLoopComments = function(arrayBuffer) {
         }
         let vorbisHeaderFound = false;
         for (const size of packets) {
-            if (this._readFourCharacters(view, index + 1) === "vorb") {
+            if (this._readFourCharacters(view, index + 1) === 'vorb') {
                 const headerType = view.getUint8(index);
                 if (headerType === 1) {
                     this._sampleRate = view.getUint32(index + 12, true);
@@ -5472,8 +5389,8 @@ WebAudio.prototype._readLoopComments = function(arrayBuffer) {
 
 WebAudio.prototype._readMetaData = function(view, index, size) {
     for (let i = index; i < index + size - 10; i++) {
-        if (this._readFourCharacters(view, i) === "LOOP") {
-            let text = "";
+        if (this._readFourCharacters(view, i) === 'LOOP') {
+            let text = '';
             while (view.getUint8(i) > 0) {
                 text += String.fromCharCode(view.getUint8(i++));
             }
@@ -5483,13 +5400,13 @@ WebAudio.prototype._readMetaData = function(view, index, size) {
             if (text.match(/LOOPLENGTH=([0-9]+)/)) {
                 this._loopLength = parseInt(RegExp.$1);
             }
-            if (text === "LOOPSTART" || text === "LOOPLENGTH") {
-                let text2 = "";
+            if (text === 'LOOPSTART' || text === 'LOOPLENGTH') {
+                let text2 = '';
                 i += 16;
                 while (view.getUint8(i) > 0) {
                     text2 += String.fromCharCode(view.getUint8(i++));
                 }
-                if (text === "LOOPSTART") {
+                if (text === 'LOOPSTART') {
                     this._loopStart = parseInt(text2);
                 } else {
                     this._loopLength = parseInt(text2);
@@ -5500,7 +5417,7 @@ WebAudio.prototype._readMetaData = function(view, index, size) {
 };
 
 WebAudio.prototype._readFourCharacters = function(view, index) {
-    let string = "";
+    let string = '';
     if (index <= view.byteLength - 4) {
         for (let i = 0; i < 4; i++) {
             string += String.fromCharCode(view.getUint8(index + i));
@@ -5516,7 +5433,7 @@ WebAudio.prototype._readFourCharacters = function(view, index) {
  * @namespace
  */
 function Video() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -5542,8 +5459,8 @@ Video.initialize = function(width, height) {
  */
 Video.resize = function(width, height) {
     if (this._element) {
-        this._element.style.width = width + "px";
-        this._element.style.height = height + "px";
+        this._element.style.width = width + 'px';
+        this._element.style.height = height + 'px';
     }
 };
 
@@ -5583,17 +5500,17 @@ Video.setVolume = function(volume) {
 };
 
 Video._createElement = function() {
-    this._element = document.createElement("video");
-    this._element.id = "gameVideo";
-    this._element.style.position = "absolute";
-    this._element.style.margin = "auto";
+    this._element = document.createElement('video');
+    this._element.id = 'gameVideo';
+    this._element.style.position = 'absolute';
+    this._element.style.margin = 'auto';
     this._element.style.top = 0;
     this._element.style.left = 0;
     this._element.style.right = 0;
     this._element.style.bottom = 0;
     this._element.style.opacity = 0;
     this._element.style.zIndex = 2;
-    this._element.setAttribute("playsinline", "");
+    this._element.setAttribute('playsinline', '');
     this._element.oncontextmenu = () => false;
     document.body.appendChild(this._element);
 };
@@ -5610,7 +5527,7 @@ Video._onError = function() {
     const retry = () => {
         this._element.load();
     };
-    throw ["LoadError", this._element.src, retry];
+    throw['LoadError', this._element.src, retry];
 };
 
 Video._onEnd = function() {
@@ -5632,9 +5549,9 @@ Video._isVisible = function() {
 
 Video._setupEventHandlers = function() {
     const onUserGesture = this._onUserGesture.bind(this);
-    document.addEventListener("keydown", onUserGesture);
-    document.addEventListener("mousedown", onUserGesture);
-    document.addEventListener("touchend", onUserGesture);
+    document.addEventListener('keydown', onUserGesture);
+    document.addEventListener('mousedown', onUserGesture);
+    document.addEventListener('touchend', onUserGesture);
 };
 
 Video._onUserGesture = function() {
@@ -5650,7 +5567,7 @@ Video._onUserGesture = function() {
  * @namespace
  */
 function Input() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -5681,30 +5598,30 @@ Input.keyRepeatInterval = 6;
  * @type Object
  */
 Input.keyMapper = {
-    9: "tab", // tab
-    13: "ok", // enter
-    16: "shift", // shift
-    17: "control", // control
-    18: "control", // alt
-    27: "escape", // escape
-    32: "ok", // space
-    33: "pageup", // pageup
-    34: "pagedown", // pagedown
-    37: "left", // left arrow
-    38: "up", // up arrow
-    39: "right", // right arrow
-    40: "down", // down arrow
-    45: "escape", // insert
-    81: "pageup", // Q
-    87: "pagedown", // W
-    88: "escape", // X
-    90: "ok", // Z
-    96: "escape", // numpad 0
-    98: "down", // numpad 2
-    100: "left", // numpad 4
-    102: "right", // numpad 6
-    104: "up", // numpad 8
-    120: "debug" // F9
+    9: 'tab',        // tab
+    13: 'ok',        // enter
+    16: 'shift',     // shift
+    17: 'control',   // control
+    18: 'control',   // alt
+    27: 'escape',    // escape
+    32: 'ok',        // space
+    33: 'pageup',    // pageup
+    34: 'pagedown',  // pagedown
+    37: 'left',      // left arrow
+    38: 'up',        // up arrow
+    39: 'right',     // right arrow
+    40: 'down',      // down arrow
+    45: 'escape',    // insert
+    81: 'pageup',    // Q
+    87: 'pagedown',  // W
+    88: 'escape',    // X
+    90: 'ok',        // Z
+    96: 'escape',    // numpad 0
+    98: 'down',      // numpad 2
+    100: 'left',     // numpad 4
+    102: 'right',    // numpad 6
+    104: 'up',       // numpad 8
+    120: 'debug'     // F9
 };
 
 /**
@@ -5713,16 +5630,16 @@ Input.keyMapper = {
  * @type Object
  */
 Input.gamepadMapper = {
-    0: "ok", // A
-    1: "cancel", // B
-    2: "shift", // X
-    3: "menu", // Y
-    4: "pageup", // LB
-    5: "pagedown", // RB
-    12: "up", // D-pad up
-    13: "down", // D-pad down
-    14: "left", // D-pad left
-    15: "right" // D-pad right
+    0: 'ok',        // A
+    1: 'cancel',    // B
+    2: 'shift',     // X
+    3: 'menu',      // Y
+    4: 'pageup',    // LB
+    5: 'pagedown',  // RB
+    12: 'up',       // D-pad up
+    13: 'down',     // D-pad down
+    14: 'left',     // D-pad left
+    15: 'right'     // D-pad right
 };
 
 /**
@@ -5736,7 +5653,7 @@ Input.clear = function() {
     this._pressedTime = 0;
     this._dir4 = 0;
     this._dir8 = 0;
-    this._preferredAxis = "";
+    this._preferredAxis = '';
     this._date = 0;
     this._virtualButton = null;
 };
@@ -5774,7 +5691,7 @@ Input.update = function() {
  * @returns {boolean} True if the key is pressed.
  */
 Input.isPressed = function(keyName) {
-    if (this._isEscapeCompatible(keyName) && this.isPressed("escape")) {
+    if (this._isEscapeCompatible(keyName) && this.isPressed('escape')) {
         return true;
     } else {
         return !!this._currentState[keyName];
@@ -5788,7 +5705,7 @@ Input.isPressed = function(keyName) {
  * @returns {boolean} True if the key is triggered.
  */
 Input.isTriggered = function(keyName) {
-    if (this._isEscapeCompatible(keyName) && this.isTriggered("escape")) {
+    if (this._isEscapeCompatible(keyName) && this.isTriggered('escape')) {
         return true;
     } else {
         return this._latestButton === keyName && this._pressedTime === 0;
@@ -5802,15 +5719,14 @@ Input.isTriggered = function(keyName) {
  * @returns {boolean} True if the key is repeated.
  */
 Input.isRepeated = function(keyName) {
-    if (this._isEscapeCompatible(keyName) && this.isRepeated("escape")) {
+    if (this._isEscapeCompatible(keyName) && this.isRepeated('escape')) {
         return true;
     } else {
         return (
             this._latestButton === keyName &&
             (this._pressedTime === 0 ||
-                (this._pressedTime >= this.keyRepeatWait &&
-                    this._pressedTime % this.keyRepeatInterval === 0))
-        );
+             (this._pressedTime >= this.keyRepeatWait &&
+              this._pressedTime % this.keyRepeatInterval === 0)));
     }
 };
 
@@ -5821,13 +5737,10 @@ Input.isRepeated = function(keyName) {
  * @returns {boolean} True if the key is long-pressed.
  */
 Input.isLongPressed = function(keyName) {
-    if (this._isEscapeCompatible(keyName) && this.isLongPressed("escape")) {
+    if (this._isEscapeCompatible(keyName) && this.isLongPressed('escape')) {
         return true;
     } else {
-        return (
-            this._latestButton === keyName &&
-            this._pressedTime >= this.keyRepeatWait
-        );
+        return (this._latestButton === keyName && this._pressedTime >= this.keyRepeatWait);
     }
 };
 
@@ -5838,7 +5751,7 @@ Input.isLongPressed = function(keyName) {
  * @type number
  * @name Input.dir4
  */
-Object.defineProperty(Input, "dir4", {
+Object.defineProperty(Input, 'dir4', {
     get: function() {
         return this._dir4;
     },
@@ -5852,7 +5765,7 @@ Object.defineProperty(Input, "dir4", {
  * @type number
  * @name Input.dir8
  */
-Object.defineProperty(Input, "dir8", {
+Object.defineProperty(Input, 'dir8', {
     get: function() {
         return this._dir8;
     },
@@ -5866,7 +5779,7 @@ Object.defineProperty(Input, "dir8", {
  * @type number
  * @name Input.date
  */
-Object.defineProperty(Input, "date", {
+Object.defineProperty(Input, 'date', {
     get: function() {
         return this._date;
     },
@@ -5878,9 +5791,9 @@ Input.virtualClick = function(buttonName) {
 };
 
 Input._setupEventHandlers = function() {
-    document.addEventListener("keydown", this._onKeyDown.bind(this));
-    document.addEventListener("keyup", this._onKeyUp.bind(this));
-    window.addEventListener("blur", this._onLostFocus.bind(this));
+    document.addEventListener('keydown', this._onKeyDown.bind(this));
+    document.addEventListener('keyup', this._onKeyUp.bind(this));
+    window.addEventListener('blur', this._onLostFocus.bind(this));
 };
 
 Input._onKeyDown = function(event) {
@@ -5899,14 +5812,14 @@ Input._onKeyDown = function(event) {
 
 Input._shouldPreventDefault = function(keyCode) {
     switch (keyCode) {
-        case 8: // backspace
-        case 9: // tab
-        case 33: // pageup
-        case 34: // pagedown
-        case 37: // left arrow
-        case 38: // up arrow
-        case 39: // right arrow
-        case 40: // down arrow
+        case 8:   // backspace
+        case 9:   // tab
+        case 33:  // pageup
+        case 34:  // pagedown
+        case 37:  // left arrow
+        case 38:  // up arrow
+        case 39:  // right arrow
+        case 40:  // down arrow
             return true;
     }
     return false;
@@ -5950,14 +5863,14 @@ Input._updateGamepadState = function(gamepad) {
         newState[i] = buttons[i].pressed;
     }
     if (axes[1] < -threshold) {
-        newState[12] = true; // up
+        newState[12] = true;  // up
     } else if (axes[1] > threshold) {
-        newState[13] = true; // down
+        newState[13] = true;  // down
     }
     if (axes[0] < -threshold) {
-        newState[14] = true; // left
+        newState[14] = true;  // left
     } else if (axes[0] > threshold) {
-        newState[15] = true; // right
+        newState[15] = true;  // right
     }
     for (let j = 0; j < newState.length; j++) {
         if (newState[j] !== lastState[j]) {
@@ -5975,28 +5888,28 @@ Input._updateDirection = function() {
     let y = this._signY();
     this._dir8 = this._makeNumpadDirection(x, y);
     if (x !== 0 && y !== 0) {
-        if (this._preferredAxis === "x") {
+        if (this._preferredAxis === 'x') {
             y = 0;
         } else {
             x = 0;
         }
     } else if (x !== 0) {
-        this._preferredAxis = "y";
+        this._preferredAxis = 'y';
     } else if (y !== 0) {
-        this._preferredAxis = "x";
+        this._preferredAxis = 'x';
     }
     this._dir4 = this._makeNumpadDirection(x, y);
 };
 
 Input._signX = function() {
-    const left = this.isPressed("left") ? 1 : 0;
-    const right = this.isPressed("right") ? 1 : 0;
+    const left = this.isPressed('left') ? 1 : 0;
+    const right = this.isPressed('right') ? 1 : 0;
     return right - left;
 };
 
 Input._signY = function() {
-    const up = this.isPressed("up") ? 1 : 0;
-    const down = this.isPressed("down") ? 1 : 0;
+    const up = this.isPressed('up') ? 1 : 0;
+    const down = this.isPressed('down') ? 1 : 0;
     return down - up;
 };
 
@@ -6009,7 +5922,7 @@ Input._makeNumpadDirection = function(x, y) {
 };
 
 Input._isEscapeCompatible = function(keyName) {
-    return keyName === "cancel" || keyName === "menu";
+    return keyName === 'cancel' || keyName === 'menu';
 };
 
 //-----------------------------------------------------------------------------
@@ -6019,7 +5932,7 @@ Input._isEscapeCompatible = function(keyName) {
  * @namespace
  */
 function TouchInput() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -6119,9 +6032,8 @@ TouchInput.isRepeated = function() {
     return (
         this.isPressed() &&
         (this._currentState.triggered ||
-            (this._pressedTime >= this.keyRepeatWait &&
-                this._pressedTime % this.keyRepeatInterval === 0))
-    );
+         (this._pressedTime >= this.keyRepeatWait &&
+          this._pressedTime % this.keyRepeatInterval === 0)));
 };
 
 /**
@@ -6176,7 +6088,7 @@ TouchInput.isReleased = function() {
  * @type number
  * @name TouchInput.wheelX
  */
-Object.defineProperty(TouchInput, "wheelX", {
+Object.defineProperty(TouchInput, 'wheelX', {
     get: function() {
         return this._currentState.wheelX;
     },
@@ -6190,7 +6102,7 @@ Object.defineProperty(TouchInput, "wheelX", {
  * @type number
  * @name TouchInput.wheelY
  */
-Object.defineProperty(TouchInput, "wheelY", {
+Object.defineProperty(TouchInput, 'wheelY', {
     get: function() {
         return this._currentState.wheelY;
     },
@@ -6204,7 +6116,7 @@ Object.defineProperty(TouchInput, "wheelY", {
  * @type number
  * @name TouchInput.x
  */
-Object.defineProperty(TouchInput, "x", {
+Object.defineProperty(TouchInput, 'x', {
     get: function() {
         return this._x;
     },
@@ -6218,7 +6130,7 @@ Object.defineProperty(TouchInput, "x", {
  * @type number
  * @name TouchInput.y
  */
-Object.defineProperty(TouchInput, "y", {
+Object.defineProperty(TouchInput, 'y', {
     get: function() {
         return this._y;
     },
@@ -6232,7 +6144,7 @@ Object.defineProperty(TouchInput, "y", {
  * @type number
  * @name TouchInput.date
  */
-Object.defineProperty(TouchInput, "date", {
+Object.defineProperty(TouchInput, 'date', {
     get: function() {
         return this._date;
     },
@@ -6252,16 +6164,16 @@ TouchInput._createNewState = function() {
 };
 
 TouchInput._setupEventHandlers = function() {
-    const pf = { passive: false };
-    document.addEventListener("mousedown", this._onMouseDown.bind(this));
-    document.addEventListener("mousemove", this._onMouseMove.bind(this));
-    document.addEventListener("mouseup", this._onMouseUp.bind(this));
-    document.addEventListener("wheel", this._onWheel.bind(this), pf);
-    document.addEventListener("touchstart", this._onTouchStart.bind(this), pf);
-    document.addEventListener("touchmove", this._onTouchMove.bind(this), pf);
-    document.addEventListener("touchend", this._onTouchEnd.bind(this));
-    document.addEventListener("touchcancel", this._onTouchCancel.bind(this));
-    window.addEventListener("blur", this._onLostFocus.bind(this));
+    const pf = {passive: false};
+    document.addEventListener('mousedown', this._onMouseDown.bind(this));
+    document.addEventListener('mousemove', this._onMouseMove.bind(this));
+    document.addEventListener('mouseup', this._onMouseUp.bind(this));
+    document.addEventListener('wheel', this._onWheel.bind(this), pf);
+    document.addEventListener('touchstart', this._onTouchStart.bind(this), pf);
+    document.addEventListener('touchmove', this._onTouchMove.bind(this), pf);
+    document.addEventListener('touchend', this._onTouchEnd.bind(this));
+    document.addEventListener('touchcancel', this._onTouchCancel.bind(this));
+    window.addEventListener('blur', this._onLostFocus.bind(this));
 };
 
 TouchInput._onMouseDown = function(event) {
@@ -6414,7 +6326,7 @@ TouchInput._onRelease = function(x, y) {
  * @namespace
  */
 function JsonEx() {
-    throw new Error("This is a static class");
+    throw new Error('This is a static class');
 }
 
 /**
@@ -6459,13 +6371,13 @@ JsonEx._encode = function(value, depth) {
     // [Note] The handling code for circular references in certain versions of
     //   MV has been removed because it was too complicated and expensive.
     if (depth >= this.maxDepth) {
-        throw new Error("Object too deep");
+        throw new Error('Object too deep');
     }
     const type = Object.prototype.toString.call(value);
-    if (type === "[object Object]" || type === "[object Array]") {
+    if (type === '[object Object]' || type === '[object Array]') {
         const constructorName = value.constructor.name;
-        if (constructorName !== "Object" && constructorName !== "Array") {
-            value["@"] = constructorName;
+        if (constructorName !== 'Object' && constructorName !== 'Array') {
+            value['@'] = constructorName;
         }
         for (const key of Object.keys(value)) {
             value[key] = this._encode(value[key], depth + 1);
@@ -6476,9 +6388,9 @@ JsonEx._encode = function(value, depth) {
 
 JsonEx._decode = function(value) {
     const type = Object.prototype.toString.call(value);
-    if (type === "[object Object]" || type === "[object Array]") {
-        if (value["@"]) {
-            const constructor = window[value["@"]];
+    if (type === '[object Object]' || type === '[object Array]') {
+        if (value['@']) {
+            const constructor = window[value['@']];
             if (constructor) {
                 Object.setPrototypeOf(value, constructor.prototype);
             }
