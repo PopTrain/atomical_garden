@@ -36,15 +36,9 @@ var FMOD = {};
 
             this.MaximumHeapSize = 64 * 1024 * 1024;
 
-            this.EventType = {
-                None: 0,
-                BGM: 1,
-                BGS: 2,
-                ME: 3,
-                SE: 4
-            }
+            this.EventType = {None: 0, BGM: 1, BGS: 2, ME: 3, SE: 4};
 
-                             this.EventTypeValues = Object.values(this.EventType);
+            this.EventTypeValues = Object.values(this.EventType);
 
             this.LISTENER_CAMERA = 0;
 
@@ -70,7 +64,8 @@ var FMOD = {};
         }
 
         init() {
-            var ptr_out = {} var result;
+            var ptr_out = {};
+            var result;
 
             result = FMOD.Studio_System_Create(ptr_out);
             console.log(result);
@@ -102,7 +97,7 @@ var FMOD = {};
             document.addEventListener('mousedown', this.resumeAudio.bind(this));
             document.addEventListener('touchend', this.resumeAudio.bind(this), false);
             document.addEventListener('touchstart', this.resumeAudio.bind(this));
-            document.addEventListener('visibilitychange', this.OnVisibilityChange.bind(this));
+            document.addEventListener('visibilitychange', this.onVisibilityChange.bind(this));
             document.addEventListener('blur', this.onBlur.bind(this));
             document.addEventListener('focus', this.onFocus.bind(this));
 
@@ -116,6 +111,104 @@ var FMOD = {};
 
             window._this_onFocus = this.onFocus.bind(this);
             window._this_onBlur = this.onBlur.bind(this);
+        }
+
+        vector(x, y, z, to) {
+            if (!to) to = {};
+
+            to.x = x;
+            to.y = y;
+            to.z = z;
+
+            return to;
+        }
+
+        create3DAttributes(x, y, z) {
+            var attributes = FMOD._3D_ATTRIBUTES();
+
+            this.vector(x || 0, y || 0, z || 0, attributes.position);
+            this.vector(0, 0, 0, attributes.velocity);
+            this.vector(0, 0, 1, attributes.forward);
+            this.vector(0, 1, 0, attributes.up);
+
+            return attributes;
+        }
+
+        setListenerPosition(id, x, y, z) {
+            if (id < 0) throw new Error('Invalid listener id');
+
+            if (!this.ListenerAttributes[id])
+                this.ListenerAttributes[id] = this.create3DAttributes(x, y, z);
+
+            var attributes = this.ListenerAttributes[id];
+
+            this.vector(x, y, z, attributes.position);
+            console.log(this.FGlobalSystem.setListenerAttributes(id, attributes, null));
+        }
+
+        start() {
+            this.InstantiatedEvents = {
+                [this.EventType.None]: {},
+                [this.EventType.BGM]: {},
+                [this.EventType.BGS]: {},
+                [this.EventType.ME]: {},
+                [this.EventType.SE]: {}
+            };
+
+            this.setListenerPosition(this.LISTENER_CAMERA, 0, 0, 0);
+            this.GlobalSpeaker = new this.GlobalSpeaker({x: 0, y: 0});
+
+            this.Temp3DAttributes = this.create3DAttributes();
+
+            this.FBanks = {};
+            var bankAssets = this.BankAssets;
+            var bank;
+
+            for (var bankAsset of bankAssets) {
+                bank = this.loadBank(bankAsset);
+                this.FBanks[bankAsset] = bank;
+
+                if (bankAsset.endsWith('.strings.bank')) this.gatherAllStrings(bankAsset, bank);
+            }
+
+            this.VCA_BGM = this.getVCA(this.VCA_BGM);
+            this.VCA_BGS = this.getVCA(this.VCA_BGS);
+            this.VCA_ME = this.getVCA(this.VCA_ME);
+            this.VCA_SE = this.getVCA(this.VCA_SE);
+
+            if (!this.VCA_BGM)
+                console.warn(
+                    'FMOD couldn\'t find VCA for BGM, volume for BGM channel will be ignored.');
+            if (!this.VCA_BGS)
+                console.warn(
+                    'FMOD couldn\'t find VCA for BGS, volume for BGS channel will be ignored.');
+            if (!this.VCA_ME)
+                console.warn(
+                    'FMOD couldn\'t find VCA for ME, volume for ME channel will be ignored.');
+            if (!this.VCA_SE)
+                console.warn(
+                    'FMOD couldn\'t find VCA for SE, volume for SE channel will be ignored.');
+
+            this.setBGMVolume(AudioManager.bgmVolume);
+            this.setBGSVolume(AudioManager.bgsVolume);
+            this.setMEVolume(AudioManager.meVolume);
+            this.setSEVolume(AudioManager.seVolume);
+
+            this.Snapshots = this.loadAllSnapshots();
+        }
+
+        getVCA(guid) {
+            if (!(guid instanceof Guid)) return null;
+
+            var ptr_out = {};
+
+            try {
+                console.log(this.FGlobalSystem.getVCAByID(guid, ptr_out));
+            } catch (error) {
+                return null;
+            }
+
+            return ptr_out.val;
         }
     }
 })();
