@@ -210,5 +210,148 @@ var FMOD = {};
 
             return ptr_out.val;
         }
+
+        loadAllSnapshots() {
+            var result = {};
+
+            if (!FMOD_FSPRO) return result;
+
+            var ptr_event = {};
+            var ptr_instance = {};
+
+            var guid;
+
+            for (var snaps in FMOD_FSPRO.Snapshot) {
+                guid = FMOD_FSPRO.Snapshot[snaps];
+
+                console.log(this.FGlobalSystem.getEventByID(guid, ptr_event));
+                console.log(ptr_event.val.createInstance(ptr_instance));
+
+                result[guid] = ptr_instance.val;
+            }
+
+            return result;
+        }
+
+        getEvent(type, guid) {
+            if (!(type in this.EventTypeValues)) type = this.EventType.None;
+
+            if (!(guid instanceof Guid)) return null;
+
+            var instancesType = this.InstantiatedEvents[type];
+            var instanceCreated = false;
+
+            if (!(guid in instancesType)) {
+                instancesType[guid] = {
+                    instances: [],
+                    parameters: {},
+                    initialParameters: null
+                } instanceCreated = true;
+            };
+
+            var instancesData = instancesType[guid];
+
+            if (!instanceCreated) {
+                var availableInstance = instancesData.instances.find(instance => {
+                    if (!instance || instance.isDeleted()) return false;
+
+                    var ptr_state = {};
+                    console.log(instance.getPlaybackState(ptr_state));
+
+                    return ptr_state.val === this.STUDIO_PLAYBACK_STOPPED;
+                });
+
+                if (availableInstance)
+                    return availableInstance;
+
+                else if (instancesData.instances.length >= this.MaximumInstanceCount) {
+                    console.log(
+                        `Can't instantiate event, ${guid}'s instances reached maximum count.`);
+                    return null;
+                }
+            }
+
+            var ptr_event = {};
+            var ptr_instance = {};
+
+            console.log(this.FGlobalSystem.getEventByID(guid, ptr_event));
+
+            console.log(ptr_event.val.createInstance(ptr_instance));
+
+            instancesData.initialParameters = this.cacheInitialParameters(ptr_instance.val);
+
+            for (var name in instancesData.initialParameters) {
+                if (!instancesData.parameters[name]) instancesData.parameters[name] = [0, true];
+
+                instancesData.parameters[name][0] = instancesData.initialParameters[name];
+                instancesData.parameters[name][1] = true;
+            }
+
+            instancesData.instances.push(ptr_instance.val);
+
+            return ptr_instance.val;
+        }
+
+        cacheInitialParameters(event) {
+            var result = {};
+
+            var ptr_description = {};
+            console.log(event.getDescription(ptr_description));
+            var description = ptr_description.val;
+
+            var ptr_count = {};
+            console.log(description.getParameterDescriptionCount(ptr_count));
+
+            var paramDescription = {};
+
+            for (var index = 0; index < ptr_count.val; index++) {
+                console.log(description.getParameterDescriptionByIndex(index, paramDescription));
+                result[paramDescription.name] = paramDescription.defaultvalue;
+            }
+
+            return result;
+        }
+
+        resumeAudio() {
+            if (this.IsAudioResumed) return;
+
+            console.log(this.FGlobalSystemCore.mixerSuspend());
+            console.log(this.FGlobalSystemCore.mixerResume());
+
+            this.IsAudioResumed = true;
+        }
+
+        onVisibilityChange() {
+            if (document.visibilityState === 'hidden') {
+                this.onBlur.call(this);
+            } else {
+                this.onFocus.call(this);
+            }
+        }
+
+        onBlur() {
+            this.setBGMVolume(0, true);
+            this.setBGSVolume(0, true);
+            this.setMEVolume(0, true);
+            this.setSEVolume(0, true);
+        }
+
+        onFocus() {
+            this.setBGMVolume(this.VCA_BGM_VOLUME);
+            this.setBGSVolume(this.VCA_BGS_VOLUME);
+            this.setMEVolume(this.VCA_ME_VOLUME);
+            this.setSEVolume(this.VCA_SE_VOLUME);
+        }
+
+        loadBank(name) {
+            var path = name;
+            var out = {};
+            console.log(this.FGlobalSystem.loadBankFile(path, FMOD.STUDIO_LOAD_BANK_NORMAL, out));
+
+            return out.val;
+        }
+
+        gatherAllStrings() {
+        }
     }
 })();
